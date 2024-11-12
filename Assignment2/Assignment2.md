@@ -488,30 +488,36 @@ We modified the statistics function on the basis of the previous one to count th
 The new diet plan page introduces the `Dishes preparation tutorial` function, which provides users with tutorials on how to make some healthy and simple dishes. At the bottom of the diet plan page, the system will display the recipes that are intelligently recommended by the system for the user, and the user can click the button at the bottom right corner of the corresponding recipes to view the details, including the amount of ingredients, cooking steps, and picture instructions (Figure 2).
 It was mentioned before that when the user chooses to skip the plan, the system has to request the reason for skipping from the user, and here we use a dialogue box to collect the information(Figure 3).
 
-
-
-
-
 ## 6.3 Login & Registration Interface Snapshot
 
 In this latest UI interface, **Continued with Wechat** button is added so that users get to choose to **login with their Wechat account**. By clicking the button, they can see a QR code popping up, scanning which with their Wechat app can allow them get authenticated with their Wechat accounts without registering and typing their login information manually. This feature is provided due to the popularity of this communication app and the motivation of providing a easy-to-use platforms to all the users of this website.
 
 ![UpdatedLoginPage](./assets/UpdatedLoginPage.png)
 
-## 6.3 Fitness Tutorial Section Update Snapshot
+## 6.4 Fitness Tutorial Section Update Snapshot
 
 In this section, we have added new progress tracking and data analysis functions. A data analysis button is added in the original tutorial content page, the user can click a small floating window, in this small page, the user can see the fitness progress and task schedule of different days by selecting the date, and in the following data report, will simply present some relevant physical indicators, such as weight, body fat rate, etc., will also present the user's recent exercise data, including the exercise time and aerobic exercise time, anaerobic exercise time, more detailed data analysis report can the user view by exporting PDF report. The following are the button addition of the original tutorial content interface and the small window for progress tracking and data analysis functions.
 
 ![UpdateTutorialUI2](.\assets\UpdateTutorialUI.png)
 
+# 7. Correction of errors
 
-# 7. Open Questions
+For the problems pointed out by the instructor in the midterm defence, we have corrected our previous work.
+For the Diet module `Implement the diet plan` activity diagram in Assignment 1, we misused the synchronisation bar (black solid line) in the previous assignment. In fact, set`Skip Plan` and set `Complete Plan` are two parallel paths that do not need to reach the `Update adherence statistics` at the same time, so we change the activity diagram to a parallel relationship as follows:
+
+![CorrectionOfImplentmentPlan](.\assets\CorrectionOfImplentmentPlan.png)
+
+Similarly, in the `Publish diet plan` activity diagram, there is only a parallel relationship between `approve` and `edit`, not a synchronous relationship, and the updated activity diagram is as follows:
+
+![CorrectionOfPublishPlan](.\assets\CorrectionOfPublishPlan.png)
+
+# 8. Open Questions
 
 
 
 
 
-# 8. The Annotated References
+# 9. The Annotated References
 
 
 
