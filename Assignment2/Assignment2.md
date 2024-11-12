@@ -418,6 +418,8 @@ Use Case: **View dish tutorials**
 
 ## 5.3 Updated Case: Login with Wechat
 
+**Updated Activity Diagram**
+
 ![Login_Act](./assets/Login_Act.png)
 
 Updated Use Case: **Login**
@@ -472,15 +474,15 @@ Users can quickly compare options at a glance, and if they want more information
 
 ## 6.2 Diet Plan Page update
 
-Figure 1:
+**Figure 1:**
 
 ![image-20241112185655642](.\assets\DietPlanUI1.png)
 
-Figure 2:
+**Figure 2:**
 
 ![DietPlanUI2](.\assets\DietPlanUI2.png)
 
-Figure 3:
+**Figure 3:**
 
 ![DietPlanUI3](.\assets\DietPlanUI3.png)
 
