@@ -381,15 +381,35 @@ In cases where a plan needs to be removed, the Administrator sends a delete mess
 
 # 5. Update Requirements
 
+## 5.1 New Case: Fitness equipment product comparison platform
 
+![image-20241112164550371](.\assets\newCase1)
 
+Use Case: **Smart Price Comparison for Fitness Equipment**
 
+---
+
+| USE CASE             | Smart Price Comparison for Fitness Equipment                 |
+| -------------------- | ------------------------------------------------------------ |
+| **ID**               | ***UC1***                                                    |
+| **Specification**    | Enables users to compare prices, reviews, and details of fitness equipment across multiple e-commerce platforms through a pop-up window triggered by a shopping cart icon. |
+| **Actors**           | **User**, **E-commerce Platforms**                           |
+| **Pre-condition**    | The user is logged into the fitness app or website.<br />The fitness equipment cards with the shopping cart icon are visible on the "Equipment" page. |
+| **Basic Path**       | 1. The user clicks the shopping cart icon on a specific fitness equipment card (e.g., rowing machine).<br />2. The system displays a pop-up window, showing price comparisons, product ratings, reviews, and other details for the selected equipment from various e-commerce platforms.<br />3. The user examines the displayed prices and reviews from multiple platforms.<br />4. The user selects a preferred platform by clicking the provided link within the pop-up window.<br />5. The system redirects the user to the chosen e-commerce platform’s product page in a new tab or window.<br />6. The user views additional details and may proceed to complete the purchase on the external platform. |
+| **Alternative Path** | 1. After viewing the price comparison pop-up, the user decides not to proceed with any purchase and closes the pop-up window without selecting a platform link.<br />2. If price or review data from an e-commerce platform is temporarily unavailable, the system displays a message indicating the missing data for that platform, allowing the user to view available options or try again later. |
+| **Post-condition**   | 1. If the user completes a purchase on an external platform, the transaction is finalized on that platform, and the fitness app session remains active for continued browsing.<br />2. If the user completes a purchase on an external platform, the transaction is finalized on that platform, and the fitness app session remains active for continued browsing. |
 
 # 6. Updated Snapshot
 
+## 6.1 Fitness equipment product comparison platform
 
+This latest UI update introduces a **smart price comparison feature** to help users make informed purchasing decisions across multiple e-commerce platforms. Each fitness equipment card now includes a **shopping cart icon**; clicking it opens a pop-up displaying real-time price comparisons, reviews, and key details from platforms like Taobao, Tmall, and Pinduoduo.
 
+Users can quickly compare options at a glance, and if they want more information, they can click through to the product page on the selected platform to view details or make a purchase. This feature streamlines the shopping experience, making it easier to find the best value for fitness equipment.
 
+![image-20241112163053537](.\assets\newUI1.png)
+
+<img src="./assets/newUI2.png" style="zoom:50%;" />
 
 # 7. Open Questions
 
