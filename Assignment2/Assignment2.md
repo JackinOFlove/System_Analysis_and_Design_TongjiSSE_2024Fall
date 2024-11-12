@@ -399,7 +399,24 @@ Use Case: **Smart Price Comparison for Fitness Equipment**
 | **Alternative Path** | 1. After viewing the price comparison pop-up, the user decides not to proceed with any purchase and closes the pop-up window without selecting a platform link.<br />2. If price or review data from an e-commerce platform is temporarily unavailable, the system displays a message indicating the missing data for that platform, allowing the user to view available options or try again later. |
 | **Post-condition**   | 1. If the user completes a purchase on an external platform, the transaction is finalized on that platform, and the fitness app session remains active for continued browsing.<br />2. If the user completes a purchase on an external platform, the transaction is finalized on that platform, and the fitness app session remains active for continued browsing. |
 
-## 5.2 Updated Case: Login with Wechat
+
+## 5.2 New Case:Dishes preparation tutorial
+
+![UseCaseDietUpdate](.\assets\UseCaseDietUpdate.png)
+
+Use Case: **View dish tutorials**
+
+| USE CASE              | VIEW DISH TUTORIALS                                          |
+| --------------------- | ------------------------------------------------------------ |
+| **ID**                | ***UC02***                                                   |
+| **Specification**     | Users can browse the tutorials recommended by the system and click on the corresponding card to view the details of the tutorial. |
+| **Actors**            | **User**                                                     |
+| **Pre-condition**     | User successfully logged into the system and views the diet plan page. |
+| **Basic Path**        | 1. User views the diet plan page.<br>2.System show the recommended dish tutorials.<br>3.User clicks on the card of the tutorial he is interested in.<br>4.System show the detail of that tutorials. |
+| **Alternative  Path** | 1. If the selected tutorial cannot be displayed:<br><tab>1.1.System displays an error message and logs the issue.<br><tab>1.2.User may choose a different tutorial. |
+| **Post condition**    | User successfully views the details of the tutorial.         |
+
+## 5.3 Updated Case: Login with Wechat
 
 ![Login_Act](./assets/Login_Act.png)
 
@@ -417,7 +434,7 @@ Updated Use Case: **Login**
 | **Alternative  Path** | 1. Visitors input the username and password that do not match<br/> <tab/>The system will show a notification: "Fail to log in: incorrect username or password", and exit. |
 | **Post condition**    | Visitors enter the system, become users, and can access users'  operations. |
 
-## 5.3 New Case: View the fitness progress and data
+## 5.4 New Case: View the fitness progress and data
 
 In this section, we have added a new use case diagram where users can **view the fitness progress and the function points of the data section**. 
 
@@ -439,6 +456,7 @@ Use Case: **View the fitness progress and data**
 | **Alternative Path** | **No Data Available for Selected Date**: 1. If no fitness data is available for the selected date, the system displays a message indicating "No data available for this date." |
 | **Post-condition**   | The user successfully views fitness progress, data analysis, and exports a detailed report. |
 
+
 # 6. Updated Snapshot
 
 ## 6.1 Fitness equipment product comparison platform
@@ -451,7 +469,30 @@ Users can quickly compare options at a glance, and if they want more information
 
 <img src="./assets/newUI2.png" style="zoom:50%;" />
 
-## 6.2 Login & Registration Interface Snapshot
+
+## 6.2 Diet Plan Page update
+
+Figure 1:
+
+![image-20241112185655642](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI1.png)
+
+Figure 2:
+
+![DietPlanUI2](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI2.png)
+
+Figure 3:
+
+![DietPlanUI3](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI3.png)
+
+We modified the statistics function on the basis of the previous one to count the number of days of completed plans and the number of days of skipped plans in the month, and added a progress icon for the user to view intuitively. In addition, we also marked the calendar with a rose-red colour block to identify the ‘Completed Plans’, and a hollow block to identify the ‘Skipped Plans ' on the calendar to enhance the interactivity of the system (Figure 1).
+The new diet plan page introduces the `Dishes preparation tutorial` function, which provides users with tutorials on how to make some healthy and simple dishes. At the bottom of the diet plan page, the system will display the recipes that are intelligently recommended by the system for the user, and the user can click the button at the bottom right corner of the corresponding recipes to view the details, including the amount of ingredients, cooking steps, and picture instructions (Figure 2).
+It was mentioned before that when the user chooses to skip the plan, the system has to request the reason for skipping from the user, and here we use a dialogue box to collect the information(Figure 3).
+
+
+
+
+
+## 6.3 Login & Registration Interface Snapshot
 
 In this latest UI interface, **Continued with Wechat** button is added so that users get to choose to **login with their Wechat account**. By clicking the button, they can see a QR code popping up, scanning which with their Wechat app can allow them get authenticated with their Wechat accounts without registering and typing their login information manually. This feature is provided due to the popularity of this communication app and the motivation of providing a easy-to-use platforms to all the users of this website.
 
@@ -462,6 +503,7 @@ In this latest UI interface, **Continued with Wechat** button is added so that u
 In this section, we have added new progress tracking and data analysis functions. A data analysis button is added in the original tutorial content page, the user can click a small floating window, in this small page, the user can see the fitness progress and task schedule of different days by selecting the date, and in the following data report, will simply present some relevant physical indicators, such as weight, body fat rate, etc., will also present the user's recent exercise data, including the exercise time and aerobic exercise time, anaerobic exercise time, more detailed data analysis report can the user view by exporting PDF report. The following are the button addition of the original tutorial content interface and the small window for progress tracking and data analysis functions.
 
 ![UpdateTutorialUI2](.\assets\UpdateTutorialUI.png)
+
 
 # 7. Open Questions
 
