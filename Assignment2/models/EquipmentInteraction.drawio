@@ -1,0 +1,247 @@
+<mxfile host="Electron" modified="2024-11-09T15:35:34.544Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="V-6xTuhkAkfVHM8sYNzR" version="22.0.3" type="device">
+  <diagram name="第 1 页" id="qdpJhMkB31jNV4cmC2E5">
+    <mxGraphModel dx="1363" dy="939" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-41" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" source="RhmlWPxtVRc9dMFsflO9-43" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="270" y="900" as="sourcePoint" />
+            <mxPoint x="269.66" y="245" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-1" value="&lt;b&gt;User&lt;/b&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="100" y="80" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-2" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="115" y="830" as="sourcePoint" />
+            <mxPoint x="114.58" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-3" value="" style="shape=umlBoundary;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="240" y="80" width="60" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-4" value="&amp;lt;&amp;lt;boundary&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Equipment Thumbnail Page&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="180" y="123" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-5" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" source="RhmlWPxtVRc9dMFsflO9-19" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="269.58000000000004" y="610.8333333333334" as="sourcePoint" />
+            <mxPoint x="270.16" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-6" value="" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="449" y="78" width="42" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-7" value="&amp;lt;&amp;lt;control&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;EquipmentController&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="400" y="123" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-8" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" source="RhmlWPxtVRc9dMFsflO9-49" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="470" y="920" as="sourcePoint" />
+            <mxPoint x="470.16" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-9" value="" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="639" y="78" width="42" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-10" value="&amp;lt;&amp;lt;control&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;RecommendationController&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="570" y="123" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-11" value="" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="821" y="80" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-12" value="&amp;lt;&amp;lt;entity&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Equipment&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="800" y="128" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-13" value="" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1006" y="80" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-14" value="&amp;lt;&amp;lt;entity&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Related Product&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="970" y="128" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-15" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" source="RhmlWPxtVRc9dMFsflO9-27" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="659.2900000000001" y="608.8333333333334" as="sourcePoint" />
+            <mxPoint x="659.87" y="168" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-16" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" source="RhmlWPxtVRc9dMFsflO9-32" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="844.29" y="608.8333333333334" as="sourcePoint" />
+            <mxPoint x="844.87" y="168" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-17" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" source="RhmlWPxtVRc9dMFsflO9-36" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1029.29" y="608.8333333333334" as="sourcePoint" />
+            <mxPoint x="1029.8700000000001" y="168" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-18" value="1:view fitness equipment" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="120" y="200" as="sourcePoint" />
+            <mxPoint x="270" y="200" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-20" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" target="RhmlWPxtVRc9dMFsflO9-19" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="269.58000000000004" y="610.8333333333334" as="sourcePoint" />
+            <mxPoint x="270.16" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-19" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="265" y="200" width="10" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-21" value="2:get Info" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="275" y="230" as="sourcePoint" />
+            <mxPoint x="470" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-22" value="3:check recommendation" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="475" y="260" as="sourcePoint" />
+            <mxPoint x="660" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-26" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="465" y="230" width="10" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-28" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" target="RhmlWPxtVRc9dMFsflO9-27" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="659" y="810" as="sourcePoint" />
+            <mxPoint x="659.87" y="168" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-27" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="655" y="260" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-29" value="4:get related equipment info" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="665" y="290" as="sourcePoint" />
+            <mxPoint x="840" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-33" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" target="RhmlWPxtVRc9dMFsflO9-32" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="844" y="820" as="sourcePoint" />
+            <mxPoint x="844.87" y="168" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-32" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="840" y="290" width="10" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-34" value="5:return equipment details" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="840" y="380" as="sourcePoint" />
+            <mxPoint x="480" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-35" value="6:search related product from different e-commerce platforms" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="475" y="428.82" as="sourcePoint" />
+            <mxPoint x="1025" y="428.82" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-37" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" target="RhmlWPxtVRc9dMFsflO9-36" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1029" y="820" as="sourcePoint" />
+            <mxPoint x="1029.8700000000001" y="168" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-36" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="1025" y="430" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-38" value="7:return product details and purchase link" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1025" y="480" as="sourcePoint" />
+            <mxPoint x="480" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-39" value="8:return equipment and product details" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="465" y="520" as="sourcePoint" />
+            <mxPoint x="280" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-40" value="9:show&amp;nbsp; details" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="265" y="550" as="sourcePoint" />
+            <mxPoint x="120" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-42" value="10:click to buy" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="115" y="650" as="sourcePoint" />
+            <mxPoint x="265" y="650" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-44" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" target="RhmlWPxtVRc9dMFsflO9-43" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="270" y="830" as="sourcePoint" />
+            <mxPoint x="269.66" y="245" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-43" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="265" y="650" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-45" value="" style="shape=umlBoundary;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1211" y="80" width="60" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-46" value="&amp;lt;&amp;lt;boundary&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;External E-commerce Platforms Page&amp;nbsp;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="1121" y="123" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-47" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" source="RhmlWPxtVRc9dMFsflO9-52" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1240" y="1020" as="sourcePoint" />
+            <mxPoint x="1241" y="168" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-48" value="11:Request to purchase" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="275" y="680" as="sourcePoint" />
+            <mxPoint x="465" y="680" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-50" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" target="RhmlWPxtVRc9dMFsflO9-49" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="470" y="830" as="sourcePoint" />
+            <mxPoint x="470.16" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-49" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="465" y="680" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-51" value="12:Link to the corresponding e-commerce platform" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="475" y="700" as="sourcePoint" />
+            <mxPoint x="1240" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-53" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" target="RhmlWPxtVRc9dMFsflO9-52" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1240" y="840" as="sourcePoint" />
+            <mxPoint x="1241" y="168" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-52" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="1236" y="700" width="10" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="RhmlWPxtVRc9dMFsflO9-54" value="13:show product purchase details" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1236" y="770" as="sourcePoint" />
+            <mxPoint x="120" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="caVVm0y5zQK8JtST8hQN-3" value="sd&amp;nbsp;View and purchase fitness equipment" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=270;height=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1430" height="860" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

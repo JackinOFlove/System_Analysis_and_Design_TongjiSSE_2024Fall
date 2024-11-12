@@ -247,11 +247,23 @@ In this part of the robust map, the key steps and interactions of users' diet ma
 
 ### 4.1.1. Class Diagram
 
+This is a class diagram of the login & register system in the KeepFit intelligent fitness platform. The user category includes basic user data management and session tracking, providing registration, login, password reset, and account deletion functions. The `User` and `UserInfo` classes handle core user information, including personal details, contact info, and login credentials, while `VisitorStatus` manages the current session status for logged-in users. Control classes are responsible for core business logic, such as verifying login credentials, handling password-based and WeChat-based logins, processing password resets, and initiating account deletion. Boundary classes correspond to specific user interface pages, including login, registration, password setup, and account deletion confirmation pages. Users can log in, reset their passwords, and delete their accounts, while the system tracks and verifies user credentials and manages session status. The overall design enables a secure and streamlined user experience with functions for logging in, resetting passwords, deleting accounts, and managing session status.
 
+![login_class_diagram](./assets/login_class_diagram.png)
 
 ### 4.1.2. Interaction Diagram
 
+This diagram describes the process of logging in with a password. First, the user enters their username and password on the login page and clicks "Login." The system sends these credentials through `LoginControl` to `LoginWithPasswordControl`, which verifies them by querying `UserInfo` to check if there is a match. If the username and password do not match, the system responds with a failure message, and `LoginPage` displays "Login failed" to inform the user. If the credentials are correct, `VisitorStatus` updates the user’s status to "Logged in" and assigns a user ID. Finally, the system redirects the user to the homepage. This process shows the full sequence of user interaction for logging in with a password, including verification and feedback on success or failure.
 
+![login_interaction_diagram_2](./assets/login_interaction_diagram_1.png)
+
+This diagram illustrates the process of logging in via WeChat. The user initiates this process by selecting the WeChat login option on the login page. The system then forwards this request to `LoginWeChatControl`, which generates a QR code displayed for the user to scan. If the user successfully scans the QR code within the given time, `VisitorStatus` updates their status to "Logged in" and assigns a user ID, allowing them to access the homepage. If the QR code is not scanned within the time limit, the system times out, displays a timeout message, and redirects the user to the homepage. This interaction covers the complete WeChat login flow, from QR code generation to successful login or timeout handling.
+
+![login_interaction_diagram_3](./assets/login_interaction_diagram_2.png)
+
+This diagram outlines the process of deleting an account. The user begins by clicking "Delete Account" on the login page. The system, through `DeleteAccountControl`, initiates the deletion process and redirects the user to a confirmation page where they must enter their username and password for verification. `DeleteAccountConfirmControl` checks these credentials against `UserInfo`. If the credentials match, the account is deleted, and the system displays a "Delete successful" message before redirecting the user to the homepage. If the credentials do not match, a "Password incorrect" message is displayed, and the user is redirected to the homepage without any deletion occurring. This process ensures secure account deletion, requiring credential confirmation and providing feedback for both successful and failed attempts.
+
+![login_interaction_diagram_3](./assets/login_interaction_diagram_3-1730989080139-5.png)
 
 ## 4.2. Fitness Tutorial Section
 
@@ -285,31 +297,87 @@ In the interactive diagram uploaded by the tutorial, the UP master first selects
 
 ### 4.3.1. Class Diagram
 
+This class diagram of the AI fitness action analysis system illustrates the main classes and their relationships. The system includes the `User` class, which allows users to register, log in, upload videos, record successful actions, and retry actions. The `Video` class stores relevant information about the uploaded videos. Control classes such as `VideoManagementController` handle video uploading, deletion, and review, while the `AIAnalysisController` is responsible for video analysis, sending results, and requesting history, interacting with the `QwenAPIController` to call APIs and obtain analysis data. Boundary classes like `VideoUploadPage`, `AnalysisResultsPage`, and `HistoricalResultsPage` are used for users to upload videos, display analysis results, and show historical data, respectively. The `AIAnalysisResult` entity class stores analysis results and timestamps, showing how the system facilitates the entire process from video upload to analysis and historical queries.
 
+![](.\assets\AIActionAnlysisClass.png)
 
 ### 4.3.2. Interaction Diagram
 
+- AI Fitness Action Coaching
 
+This sequence diagram describes the process of AI fitness action analysis. First, the user uploads a fitness action video, and the system verifies its content legality and checks if the user's daily usage quota is sufficient. If the content is legal and the quota is adequate, the video is sent to the server to initiate AI analysis. The system then calls the Qwen_VL API for video analysis and generates the analysis result. Once the analysis result is returned, the system displays the latest analysis result. If the content is illegal or the user's quota is insufficient, the system will prompt an error message.
+
+![](.\assets\AIActionAnlysisTime.png)
 
 ## 4.4. Fitness Equipment Section
 
 ### 4.4.1. Class Diagram
 
+This class diagram illustrates the structure of a fitness equipment system, which includes multiple entity classes, control classes, and boundary classes. The main entity classes are `Equipment`, `User`, `VIP`, `Recommendation`, and `AIResponseContent`, representing equipment, user information, and recommendation content, respectively. The control classes include `EquipmentController`, `RecommendationController`, and `AIChatController`, which handle business logic such as equipment searching, recommendation generation, and user message processing. The boundary classes, `EquipmentSearchPage`, `EquipmentsThumbnailPage`, `EquipmentsDescriptionPage`, and `AIChatPage`, are used for user interaction, such as searching for and displaying equipment information and AI chat interface. These classes collaborate through composition and association relationships to enable the overall functioning of the system.
 
+![](.\assets\equipmentClass.png)
 
 ### 4.4.2. Interaction Diagram
 
+- **View and Purchase Fitness Equipment**
 
+This sequence diagram describes the process of a user viewing and purchasing fitness equipment in the fitness equipment system. The user first browses the equipment thumbnail page and retrieves the equipment information. The system checks the user's personalized information to recommend content and returns relevant equipment details. Then, the system searches for related products from different e-commerce platforms and returns the product details and purchase link. After viewing the detailed information, the user can click to buy, and the system will redirect to the corresponding e-commerce platform for the purchase and display the purchase details.
+
+![](.\assets\equipmentTime1.png)		
+
+- **Fitness Equipment AI Intelligent Q&A**
+
+This sequence diagram describes the process where VIP users interact with a specific fitness equipment agent and update the equipment information card. The VIP user selects the equipment for interaction, and the system verifies their identity and permissions. Once the VIP status is confirmed, the user can input questions via text or voice. The system sends the question in text format to the AI for a response, which is then returned. The user reviews the response and can choose to accept or reject it. If accepted, the system inserts the new comment into the equipment information card. If rejected, the request ends. If the VIP status is invalid, the system will reject the request.
+
+![](.\assets\equipmentTime2.png)
 
 ## 4.5. Fitness Diet Section
 
 ### 4.5.1. Class Diagram
 
+The class diagram represents the architecture of the intelligent diet management system within the KeepFit platform. The entity classes manage the core data,  which handle the details of diet plans, individual dishes, and user dietary records, respectively. The control classes are responsible for the business logic, which enable users to add food items to their diet plans, select diet plans, analyze their dietary records, and create new records.Boundary classes correspond to specific user interface pages within the system, which provide interfaces for users to interact with their diet plans and records. Users can view and manage their dietary plans, uploaders can contribute by adding new dishes to the system, and administrators have the ability to review and manage diet plans and records.
 
+![class_diet](.\assets\class_diet.png)
 
 ### 4.5.2. Interaction Diagram
 
+- **Upload  Dietary Record Interaction**
 
+In this interactive diagram, users first navigate to the dietary record page to manage their own dietary records. They can view their dietary record page, return to check the history of their records, and click the upload button to fill in the required information and submit a new dietary record. After submission, RecordUploadControl checks whether the information is complete and sends the record details to the database. If successful, the system returns a confirmation message, and users can view the record. If not submitted, it is saved as a draft.
+
+VIP users can also select records and submit applications for artificial intelligence analysis. AIAnalysisControl receives the AI analysis application, processes the dietary information, and returns the analysis results. Users can then view the analysis results. Additionally, users can choose to view historical analyses, and the system retrieves and returns the historical analysis, which is then displayed to the user. Users can opt to update the analysis and click the relevant button to confirm the update. The system sends a confirmation message and returns the successfully updated analysis results, displaying the updated outcomes to the user.
+
+![recordUserInteraction](.\assets\recordUserInteraction.png)
+
+- **Implement Dietary Plan Interaction**
+
+In this interactive diagram, the user begins by accessing the DietaryPlanPage to manage their dietary plans and track their progress.
+
+The user has the option to select a different plan. They click the 'select plan' button and the system retrieves all plans and returns a list, which is then displayed to the user, allowing them to choose a new plan. Upon selecting a plan, the user sends a request for the replacement, and the system changes the current plan, and updating the display to show the new current plan.
+
+Alternatively, the user can set the plan status as completed. They click the 'completed' button and the system sets the plan as completed and returns a success message, updating the completion statistics and displaying the completed status to the user.
+
+If the user decides to skip the plan, they click the 'skip' button and fill in the reason for skipping. The system sends the skip message, sets the plan as skipped, and saves the reason, returning a success message and updating the completion statistics.
+
+![planUserInteraction](.\assets\planUserInteraction.png)
+
+- **Upload Dietary Plan Interaction**
+
+In the interaction diagram, the Uploader fills in the necessary details of the plan and then the system sends the plan information to the controller. The control class then sends the diet plan to the backend for processing. The success message is returned after successful upload.
+
+![planUploaderInteraction](.\assets\planUploaderInteraction.png)
+
+- **Aduit Dietary Plan Interaction**
+
+In this interactive diagram, the Administrator starts by accessing the DietaryPlanAduitPage to manage and audit dietary plans. They can view the page and request a list of pending plans, which the system retrieves and returns, showing the Administrator the plans that are awaiting review.
+
+If administrator choose to approve a plan, they send an approval message, and the PlanAduitControl sets the plan status to approved, returning a success message and updating the display to show the success of the operation.
+
+If the Administrator opts to edit a plan, they make the necessary changes and send the edited plan. The PlanAduitControl then updates the plan and sets its status accordingly, returning a success message and updating the display to reflect the successful edit.
+
+In cases where a plan needs to be removed, the Administrator sends a delete message, and the PlanAduitControl deletes the plan from the system, returning a success message and updating the display to confirm the successful deletion.
+
+![planAdminInteraction](.\assets\planAdminInteraction.png)
 
 # 5. Update Requirements
 
@@ -333,7 +401,7 @@ In the interactive diagram uploaded by the tutorial, the UP master first selects
 
 
 
-
+ 
 
 # 9. Contributes
 
