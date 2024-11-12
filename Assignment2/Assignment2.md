@@ -417,6 +417,28 @@ Updated Use Case: **Login**
 | **Alternative  Path** | 1. Visitors input the username and password that do not match<br/> <tab/>The system will show a notification: "Fail to log in: incorrect username or password", and exit. |
 | **Post condition**    | Visitors enter the system, become users, and can access users'  operations. |
 
+## 5.3 New Case: View the fitness progress and data
+
+In this section, we have added a new use case diagram where users can **view the fitness progress and the function points of the data section**. 
+
+*At the same time, this part of the use case diagram was modified according to the teacher's opinion after the last defense.*
+
+![UpdateTutorialSectionUseCase](.\assets\UpdateTutorialSectionUseCase.png)
+
+Use Case: **View the fitness progress and data**
+
+------
+
+| **USE CASE**         | View the fitness progress and data                           |
+| -------------------- | ------------------------------------------------------------ |
+| **ID**               | ***UC06***                                                   |
+| **Specification**    | This use case describes how the user can track their fitness progress and view data analysis in the tutorial section. Users can check their progress over different dates, see various physical indicators, and view/export detailed exercise reports. |
+| **Actors**           | **User**, **System**                                         |
+| **Pre-condition**    | 1. The user has logged into the system. 2. The user has accessed the tutorial content page. |
+| **Basic Path**       | 1. The user clicks on the data analysis button on the tutorial content page. <br />2. The system opens a floating window for data analysis and progress tracking. <br />3. The user selects a date to view specific fitness progress for that day. <br />4. The system displays the user’s fitness data, including relevant physical indicators like weight and body fat percentage, and recent exercise data (exercise time, aerobic, and anaerobic time). <br />5. The user clicks on an option to export a PDF report for a more detailed analysis. <br />6. The system generates and downloads the PDF report. |
+| **Alternative Path** | **No Data Available for Selected Date**: 1. If no fitness data is available for the selected date, the system displays a message indicating "No data available for this date." |
+| **Post-condition**   | The user successfully views fitness progress, data analysis, and exports a detailed report. |
+
 # 6. Updated Snapshot
 
 ## 6.1 Fitness equipment product comparison platform
@@ -434,6 +456,12 @@ Users can quickly compare options at a glance, and if they want more information
 In this latest UI interface, **Continued with Wechat** button is added so that users get to choose to **login with their Wechat account**. By clicking the button, they can see a QR code popping up, scanning which with their Wechat app can allow them get authenticated with their Wechat accounts without registering and typing their login information manually. This feature is provided due to the popularity of this communication app and the motivation of providing a easy-to-use platforms to all the users of this website.
 
 ![UpdatedLoginPage](./assets/UpdatedLoginPage.png)
+
+## 6.3 Fitness Tutorial Section Update Snapshot
+
+In this section, we have added new progress tracking and data analysis functions. A data analysis button is added in the original tutorial content page, the user can click a small floating window, in this small page, the user can see the fitness progress and task schedule of different days by selecting the date, and in the following data report, will simply present some relevant physical indicators, such as weight, body fat rate, etc., will also present the user's recent exercise data, including the exercise time and aerobic exercise time, anaerobic exercise time, more detailed data analysis report can the user view by exporting PDF report. The following are the button addition of the original tutorial content interface and the small window for progress tracking and data analysis functions.
+
+![UpdateTutorialUI2](.\assets\UpdateTutorialUI.png)
 
 # 7. Open Questions
 
