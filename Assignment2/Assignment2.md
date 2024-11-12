@@ -25,10 +25,6 @@ Compared with the previous document, we added new content in each subsystem. The
   <img src="./assets/Scope6.png" alt="Image 6" style="width: 102px;"/>
   <img src="./assets/Scope7.png" alt="Image 7" style="width: 102px;"/>
 </p>
-
-
-
-
 In addition, Keep-Fit also has the following characteristics:
 
 - The platform system operates in a network environment.
@@ -98,7 +94,7 @@ In order to find the appropriate architecture model, we first need to use previo
 
 As we all know, the traditional three-story building design is as follows:
 
-![CustomThreeLayers](.\assets\CustomThreeLayers.png)
+<img src=".\assets\CustomThreeLayers.png" alt="CustomThreeLayers" style="width:500px;" />
 
 We have preliminarily completed the architecture analysis and design of the system through the subdivision of the traditional three-layer logical system architecture. The system-level architecture can be as shown below:
 
@@ -112,7 +108,7 @@ Combined with the functions of the system, we integrated the above architecture 
 
 The presentation layer includes user interface information and components that facilitate user interaction. It handles user events through various components and encapsulates page data as a View Object (VO), allowing seamless transfer to application layer components for further business logic processing. Additionally, it can directly invoke external APIs to enable specific functionalities.
 
-![3.1.1](.\assets\3.1.1.png)
+<img src=".\assets\3.1.1.png" alt="3.1.1" style="width:500px;" />
 
 - **Interface Interaction Component**: This includes UI elements that directly interact with the user, such as buttons, input fields, and dropdown menus. These components are responsible for receiving user input and conveying the user's intentions to the system.
 - **Data Encapsulation Component**: This component encapsulates the page's data state into a VO (view object) to facilitate transmission between layers. It converts complex page states into a format that’s easier to transfer, providing a consistent data interface for application layer logic.
@@ -123,7 +119,7 @@ The presentation layer includes user interface information and components that f
 
 The application layer facilitates data exchange between the presentation and business logic layers. It retrieves information from the View Object (VO) passed by the presentation layer, converts it into a Data Transfer Object (DTO), and then routes it to components in the business interface layer for processing. Additionally, data received from the business interface layer is restructured as a VO before being sent back to the presentation layer for user interaction.
 
-![3.1.2](.\assets\3.1.2.png)
+<img src=".\assets\3.1.2.png" alt="3.1.2" style="width:500px;" />
 
 - **Data Unpacking Component**: Handles the extraction of data from incoming VOs, preparing it for further application layer tasks.
 - **Data Encapsulation Component**: Packages data into DTOs, formatting it for streamlined transfer to the business logic layer.
@@ -133,22 +129,22 @@ The application layer facilitates data exchange between the presentation and bus
 
 The external API layer handles data objects from specific layers or subsystems, invokes external interfaces for logical processing, and returns the processed data objects for use by the subsystem or presentation layer.
 
-![3.1.3.1](.\assets\3.1.3.1.png)
+<img src=".\assets\3.1.3.1.png" alt="3.1.3.1" style="width:500px;" />
 
 - **Data Transmission Component**: Manages the flow of data between the external API layer and other system layers, ensuring seamless interaction.
 - **External API**: Connects with external interfaces to perform necessary logic operations, enabling the exchange and processing of data across systems.
 
-![3.1.3.2](.\assets\3.1.3.2.png)
+<img src=".\assets\3.1.3.2.png" alt="3.1.3.2" style="width:500px;" />
 
 ### 3.1.4. Business Interface Layer
 
 The business interface layer represents the system's external functionality. It receives data from the controller layer, invokes the appropriate components in the business implementation layer to perform business logic processing, and then sends the processed information back through the business interface layer to the higher layers.
 
-![3.1.4.1](.\assets\3.1.4.1.png)
+<img src=".\assets\3.1.4.1.png" alt="3.1.4.1" style="width:500px;" />
 
 - **Data Transmission Component**: Facilitates data movement between the controller and business interface layers, ensuring efficient and reliable data flow.
 
-![3.1.4.2](.\assets\3.1.4.2.png)
+<img src=".\assets\3.1.4.2.png" alt="3.1.4.2" style="width:600px;" />
 
 - **Business Interface**: Acts as the access point for business logic, coordinating with implementation components to process requests and relay results back up the system.
 
@@ -188,13 +184,13 @@ The general service package includes a set of reusable business methods that can
 
 The DTO (Data Transfer Object) layer comprises various classes tailored to meet specific business logic requirements. Utilizing DTOs helps filter out unnecessary information during data transfer, enhancing operational efficiency and ensuring data security.
 
-![3.1.7](.\assets\3.1.7.png)
+<img src=".\assets\3.1.7.png" alt="3.1.7" style="width:500px;" />
 
 ### 3.1.8. Business Entity Library
 
 The **Business Entity Library** is a collection of classes or components that represent the core business entities in a software system. These entities are typically modeled based on the main data structures and concepts within the business domain the software is intended to support. 
 
-![3.1.8](.\assets\3.1.8.png)
+<img src=".\assets\3.1.8.png" alt="3.1.8" style="width:500px;" />
 
 In this system, we have abstracted entities such as the *cookbook*、*fitness equipment* based on different key functional points, in order to reduce interactions with the data access layer and enhance the security of data operations.
 
@@ -202,13 +198,15 @@ In this system, we have abstracted entities such as the *cookbook*、*fitness eq
 
 The main purpose of the Data Access Layer (DAL) is to provide a unified interface for upper-layer business logic to read and manipulate data through components like the Database Connection Component、 Data Cache component and so on, rather than directly interacting with the underlying database. This design enhances the system's maintainability, scalability, and security.
 
-![3.1.9](.\assets\3.1.9.png)
+<img src=".\assets\3.1.9.png" alt="3.1.9" style="width:400px;" />
 
 ### 3.1.10. Common Service Library
 
 The common services library includes various functional services closely integrated with all layers of the system architecture, such as file storage service component, monitoring service component and so on, providing components at each level with accessible functionalities, ensuring comprehensive support across the system.
 
-![3.1.10](.\assets\3.1.10.png)
+<img src=".\assets\3.1.10.png" alt="3.1.10" style="width:400px;" />
+
+<div style="page-break-after: always;"></div>
 
 ## 3.2. Robustness Diagrams
 
@@ -470,8 +468,9 @@ Users can quickly compare options at a glance, and if they want more information
 
 ![image-20241112163053537](.\assets\newUI1.png)
 
-<img src="./assets/newUI2.png" style="zoom:50%;" />
+<img src="./assets/newUI2.png" style="width:400px;" />
 
+<div style="page-break-after: always;"></div>
 
 ## 6.2 Diet Plan Page update
 
@@ -495,13 +494,13 @@ It was mentioned before that when the user chooses to skip the plan, the system 
 
 In this latest UI interface, **Continued with Wechat** button is added so that users get to choose to **login with their Wechat account**. By clicking the button, they can see a QR code popping up, scanning which with their Wechat app can allow them get authenticated with their Wechat accounts without registering and typing their login information manually. This feature is provided due to the popularity of this communication app and the motivation of providing a easy-to-use platforms to all the users of this website.
 
-![UpdatedLoginPage](./assets/UpdatedLoginPage.png)
+<img src="./assets/UpdatedLoginPage.png" alt="UpdatedLoginPage" style="width:500px;" />
 
 ## 6.4 Fitness Tutorial Section Update Snapshot
 
 In this section, we have added new progress tracking and data analysis functions. A data analysis button is added in the original tutorial content page, the user can click a small floating window, in this small page, the user can see the fitness progress and task schedule of different days by selecting the date, and in the following data report, will simply present some relevant physical indicators, such as weight, body fat rate, etc., will also present the user's recent exercise data, including the exercise time and aerobic exercise time, anaerobic exercise time, more detailed data analysis report can the user view by exporting PDF report. The following are the button addition of the original tutorial content interface and the small window for progress tracking and data analysis functions.
 
-![UpdateTutorialUI2](.\assets\UpdateTutorialUI.png)
+<img src=".\assets\UpdateTutorialUI.png" alt="UpdateTutorialUI2" style="width:600px;" />
 
 # 7. Correction of errors
 
