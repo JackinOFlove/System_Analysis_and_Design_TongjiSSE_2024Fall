@@ -418,8 +418,6 @@ Use Case: **View dish tutorials**
 
 ## 5.3 Updated Case: Login with Wechat
 
-**Updated Activity Diagram**
-
 ![Login_Act](./assets/Login_Act.png)
 
 Updated Use Case: **Login**
@@ -450,13 +448,13 @@ Use Case: **View the fitness progress and data**
 
 | **USE CASE**         | View the fitness progress and data                           |
 | -------------------- | ------------------------------------------------------------ |
-| **ID**               | ***UC03***                                                   |
+| **ID**               | ***UC06***                                                   |
 | **Specification**    | This use case describes how the user can track their fitness progress and view data analysis in the tutorial section. Users can check their progress over different dates, see various physical indicators, and view/export detailed exercise reports. |
 | **Actors**           | **User**, **System**                                         |
-| **Pre-condition**    | 1. The user has logged into the system. <br />2. The user has accessed the tutorial content page. |
-| **Basic Path**       | 1. The user clicks on the data analysis button on the tutorial content page. <br />2. The system opens a floating window for data analysis and progress tracking. <br />3. The user selects a date to view specific fitness progress for that day. <br />4. The system displays the user’s fitness data, including relevant physical indicators like weight and body fat percentage, and recent exercise data (exercise time, aerobic, and anaerobic time). <br />5. The user can clicks on an option to export a PDF report for a more detailed analysis alternatively . <br />6. The system generates and downloads the PDF report. |
+| **Pre-condition**    | 1. The user has logged into the system. 2. The user has accessed the tutorial content page. |
+| **Basic Path**       | 1. The user clicks on the data analysis button on the tutorial content page. <br />2. The system opens a floating window for data analysis and progress tracking. <br />3. The user selects a date to view specific fitness progress for that day. <br />4. The system displays the user’s fitness data, including relevant physical indicators like weight and body fat percentage, and recent exercise data (exercise time, aerobic, and anaerobic time). <br />5. The user clicks on an option to export a PDF report for a more detailed analysis. <br />6. The system generates and downloads the PDF report. |
 | **Alternative Path** | **No Data Available for Selected Date**: 1. If no fitness data is available for the selected date, the system displays a message indicating "No data available for this date." |
-| **Post-condition**   | The user successfully views fitness progress, data analysis.If user need, he/she can exports a detailed report. |
+| **Post-condition**   | The user successfully views fitness progress, data analysis, and exports a detailed report. |
 
 
 # 6. Updated Snapshot
@@ -474,17 +472,17 @@ Users can quickly compare options at a glance, and if they want more information
 
 ## 6.2 Diet Plan Page update
 
-**Figure 1:**
+Figure 1:
 
-![image-20241112185655642](.\assets\DietPlanUI1.png)
+![image-20241112185655642](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI1.png)
 
-**Figure 2:**
+Figure 2:
 
-![DietPlanUI2](.\assets\DietPlanUI2.png)
+![DietPlanUI2](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI2.png)
 
-**Figure 3:**
+Figure 3:
 
-![DietPlanUI3](.\assets\DietPlanUI3.png)
+![DietPlanUI3](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI3.png)
 
 We modified the statistics function on the basis of the previous one to count the number of days of completed plans and the number of days of skipped plans in the month, and added a progress icon for the user to view intuitively. In addition, we also marked the calendar with a rose-red colour block to identify the ‘Completed Plans’, and a hollow block to identify the ‘Skipped Plans ' on the calendar to enhance the interactivity of the system (Figure 1).
 The new diet plan page introduces the `Dishes preparation tutorial` function, which provides users with tutorials on how to make some healthy and simple dishes. At the bottom of the diet plan page, the system will display the recipes that are intelligently recommended by the system for the user, and the user can click the button at the bottom right corner of the corresponding recipes to view the details, including the amount of ingredients, cooking steps, and picture instructions (Figure 2).
@@ -504,10 +502,6 @@ In this section, we have added new progress tracking and data analysis functions
 
 # 7. Correction of errors
 
-The use case diagram of the fitness tutorial section was modified according to the teacher's opinion after the last defense. Now the latest use case diagram is in 5.4. Please see that part for details.
-
-![UpdateTutorialSectionUseCase](.\assets\UpdateTutorialSectionUseCase.png)
-
 For the problems pointed out by the instructor in the midterm defence, we have corrected our previous work.
 For the Diet module `Implement the diet plan` activity diagram in Assignment 1, we misused the synchronisation bar (black solid line) in the previous assignment. In fact, set`Skip Plan` and set `Complete Plan` are two parallel paths that do not need to reach the `Update adherence statistics` at the same time, so we change the activity diagram to a parallel relationship as follows:
 
@@ -519,77 +513,43 @@ Similarly, in the `Publish diet plan` activity diagram, there is only a parallel
 
 # 8. Open Questions
 
-For the next phase of the intelligent fitness platform, here are some key challenges to explore and design tasks to tackle:
 
-## 8.1 Challenges
-
-+ **User Behavior Analysis and Personalized Recommendations**
-
-  Develop refined analytics to understand user fitness preferences and habits, enabling personalized recommendations. This requires optimized data collection, analysis models, and recommendation algorithms.
-
-+ **Data Privacy and Security**
-
-  As the platform gathers more user data, ensuring data privacy compliance is essential, especially with sensitive health and body metrics. Implement secure storage, encrypted transmission, and strict access control measures.
-
-+ **AI Movement Recognition and Feedback Accuracy**
-
-  Improve AI accuracy in recognizing and providing feedback on movement quality, ensuring consistency across different environments, whether indoors or outdoors.
-
-+ **Multi-Device Compatibility and Synchronization**
-
-  Enable platform access across various devices (e.g., smartphones, tablets, smartwatches) with real-time data synchronization, enhancing the user experience.
-
-+ **User Engagement and Retention**
-
-  Increase user retention through effective incentives and gamification, such as rewards, achievements, and social interaction features that encourage frequent engagement.
-
-## 8.2 Design Tasks
-
-+ **Personalized Training Plan Optimization Module**
-
-  Design and implement a module that auto-generates and adjusts training plans based on users’ history, fitness goals, and current health metrics, including adaptive load adjustments and suggested training times.
-
-+ **Advanced Data Analysis Report Features**
-
-  Expand report capabilities with more analytical dimensions (e.g., monthly trends, muscle growth rate), including intuitive charts and visualizations to help users understand their fitness progress.
-
-+ **Social Interaction and Challenges**
-
-  Introduce social interaction features such as friend challenges, group fitness plans, and a leaderboard to encourage user interaction and engagement.
-
-+ **Multilingual and Localization Support**
-
-  Design support for multiple languages and adapt the platform to fit local fitness habits and preferences, including interface translation and regional customization.
-
-+ **Expanded AI Assistant Functions**
-
-  Extend the AI assistant’s capabilities to include dietary suggestions, sleep management, and other health aspects to enhance users’ overall fitness and wellness.
-
-+ **Dynamic Load Adjustment and Real-Time Feedback**
-
-  Create a real-time load adjustment system based on metrics like heart rate and respiratory rate, providing dynamic intensity adjustments and guidance to help users avoid injuries and overtraining.
-
-+ **Social Media and Content Sharing Features**
-
-  Design features that allow users to share fitness data, achievements, and specific training content on social media, promoting fitness achievements and encouraging user sharing.
-
-+ **User Feedback and Continuous Improvement Loop**
-
-  Establish a feedback collection mechanism for users to report issues or suggest improvements, and periodically optimize the system based on this feedback to keep functionality up-to-date.
 
 # 9. The Annotated References
 
+1. https://www.tutorialspoint.com/software_architecture_design/index.htm
 
+   This comprehensive guide covers essential aspects of software architecture and design, providing insights into structuring applications for scalability, efficiency, and maintainability. For the KeepFit project, these principles are fundamental to creating a robust architecture capable of supporting features like personalized diet plans, workout routines, and equipment management. The guide explains architectural patterns (such as layered, client-server, and microservices), each with unique benefits for structuring modular applications. For KeepFit, a layered architecture could separate user interaction from data processing and storage, improving modularity and simplifying development and debugging.
 
- 
+   Additionally, the guide emphasizes the importance of design quality attributes like performance, security, and scalability, which are critical in ensuring that KeepFit operates smoothly as user numbers grow. By adopting principles like separation of concerns and utilizing design patterns for efficient component interaction, we can create a system that handles complex operations, such as real-time data updates for workouts and diet recommendations, without sacrificing responsiveness.
 
-# 10. Contributes
+2. **https://zhuanlan.zhihu.com/p/109655171**
+
+   In the context of the KeepFit project, understanding UML class diagrams is essential for establishing a structured and maintainable architecture that defines relationships among key components like user profiles, workout routines, diet plans, and equipment management. This article’s focus on class diagrams aligns directly with KeepFit’s need to clearly model the static structures and interdependencies across its diverse features. By applying principles from this guide, we can accurately represent the class hierarchies and relationships within KeepFit, clarifying how components such as User, DietPlan, WorkoutRoutine, and Equipment interact, either through inheritance, associations, or dependencies. Notations covered in the article, such as “+” for public and “-” for private members, support the application’s encapsulation needs, ensuring secure, controlled interactions across modules.
+
+   Moreover, understanding relationships like aggregation, composition, and dependency enables us to capture “has-a” and “uses” dynamics essential to KeepFit’s core functionality—for example, connecting Equipment with WorkoutRoutine, where both components play distinct but interlinked roles. The article also provides a foundation for extensibility, ensuring that KeepFit’s design can accommodate future enhancements, such as adding progress tracking or other fitness-related features, with minimal disruption to the core structure. Overall, incorporating UML class diagram principles enables the KeepFit team to plan, communicate, and manage complex interactions effectively, resulting in a scalable, user-centered fitness platform that remains adaptable and efficient as it evolves.
+
+3. https://design-patterns.readthedocs.io/zh-cn/latest/read_uml.html
+
+   This article is a tutorial blog on drawing UML class diagrams. Through the examples in the article, we gained a deeper understanding of the six types of relationships between classes and successfully applied them to our class design. For instance, in the dietary module class design, the `AIAnalysis` class serves as an attribute of the `DietRecord` class, and the relationship between them is a composition, represented by a solid diamond shape.
+
+4. https://juejin.cn/post/6965684798174167076
+
+   This article is a tutorial blog on drawing UML sequence diagrams. In the article, the author distinguishes between synchronous messages, asynchronous messages, return messages, and self-messages, and also introduces logical control structures such as alternative and choice combinations. Through this content, the article helps us gain a deeper understanding of the structure and usage scenarios of sequence diagrams, which we have successfully applied to our own sequence diagrams.
+
+5. https://mi.talkingdata.com/report-detail.html?id=544
+
+   TalkingData The report provides an in-depth analysis of the portraits of Chinese sports and fitness people, covering the age, behavior habits and geographical distribution of users. Data show that the use rate of fitness APP is gradually increasing among young people, mainly preferring aerobic and strength training. The report also points out the time period that users exercise frequently, common functions, and participation differences between cities, and analyzes user motivation, common exercise environments, and the brand's marketing strategies among different fitness groups. 
+
+   This report offers valuable guidance for designing new fitness platform features and effectively displaying exercise data. By analyzing user behaviors, preferences, and peak usage times, it suggests optimizing app interfaces with features that align with users' motivations and exercise routines, such as enhanced tracking for cardio and strength workouts. The report's insights on popular app functionalities and regional activity differences can also inform feature prioritization and data visualization design, helping to create an engaging, user-centered experience tailored to fitness app demographics.
+
+# 9. Contributes
 
 In the implementation process of the project, all members actively discuss and participate seriously, according to their respective interests and ability, to complete the task on time and with high quality. Harmonious team atmosphere, smooth communication and high efficiency. The division of labor and contribution of our group are like the following:
 
-|          Members           | Part 1 | Part 2 | Part 3 | Part 4 | Part 5 | Part 6 | Part 7 | Part 8 | Part9 | SCORE WEIGHT |
-| :------------------------: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :---: | :----------: |
-| 2154286 <br>Weicheng Zheng |   √    |   √    |        |   √    |        |   √    |   √    |   √    |   √   |     25%      |
-|  2253744 <br/>Juekai Lin   |   √    |        |   √    |   √    |   √    |   √    |        |   √    |   √   |     25%      |
-|   2153085<br/> Lixin Ma    |   √    |   √    |        |   √    |        |   √    |   √    |   √    |   √   |     25%      |
-|  2154284 <br/>Junhao Yang  |   √    |        |   √    |   √    |        |   √    |        |   √    |   √   |     25%      |
+|          Members           | Part 1 | Part 2 | Part 3 | Part 4 | Part 5 | Part 6 | Part 7 | Part 8 | SCORE WEIGHT |
+| :------------------------: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----------: |
+| 2154286 <br>Weicheng Zheng |   √    |   √    |        |   √    |        |   √    |   √    |   √    |     25%      |
+|  2253744 <br/>Juekai Lin   |   √    |        |   √    |   √    |   √    |   √    |        |   √    |     25%      |
+|   2153085<br/> Lixin Ma    |   √    |   √    |        |   √    |        |   √    |   √    |   √    |     25%      |
+|  2154284 <br/>Junhao Yang  |   √    |        |   √    |   √    |        |   √    |        |   √    |     25%      |
