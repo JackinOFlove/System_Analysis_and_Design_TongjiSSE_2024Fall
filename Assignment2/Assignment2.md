@@ -448,13 +448,13 @@ Use Case: **View the fitness progress and data**
 
 | **USE CASE**         | View the fitness progress and data                           |
 | -------------------- | ------------------------------------------------------------ |
-| **ID**               | ***UC06***                                                   |
+| **ID**               | ***UC03***                                                   |
 | **Specification**    | This use case describes how the user can track their fitness progress and view data analysis in the tutorial section. Users can check their progress over different dates, see various physical indicators, and view/export detailed exercise reports. |
 | **Actors**           | **User**, **System**                                         |
-| **Pre-condition**    | 1. The user has logged into the system. 2. The user has accessed the tutorial content page. |
-| **Basic Path**       | 1. The user clicks on the data analysis button on the tutorial content page. <br />2. The system opens a floating window for data analysis and progress tracking. <br />3. The user selects a date to view specific fitness progress for that day. <br />4. The system displays the user’s fitness data, including relevant physical indicators like weight and body fat percentage, and recent exercise data (exercise time, aerobic, and anaerobic time). <br />5. The user clicks on an option to export a PDF report for a more detailed analysis. <br />6. The system generates and downloads the PDF report. |
+| **Pre-condition**    | 1. The user has logged into the system. <br />2. The user has accessed the tutorial content page. |
+| **Basic Path**       | 1. The user clicks on the data analysis button on the tutorial content page. <br />2. The system opens a floating window for data analysis and progress tracking. <br />3. The user selects a date to view specific fitness progress for that day. <br />4. The system displays the user’s fitness data, including relevant physical indicators like weight and body fat percentage, and recent exercise data (exercise time, aerobic, and anaerobic time). <br />5. The user can clicks on an option to export a PDF report for a more detailed analysis alternatively . <br />6. The system generates and downloads the PDF report. |
 | **Alternative Path** | **No Data Available for Selected Date**: 1. If no fitness data is available for the selected date, the system displays a message indicating "No data available for this date." |
-| **Post-condition**   | The user successfully views fitness progress, data analysis, and exports a detailed report. |
+| **Post-condition**   | The user successfully views fitness progress, data analysis.If user need, he/she can exports a detailed report. |
 
 
 # 6. Updated Snapshot
@@ -474,15 +474,15 @@ Users can quickly compare options at a glance, and if they want more information
 
 Figure 1:
 
-![image-20241112185655642](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI1.png)
+![image-20241112185655642](.\assets\DietPlanUI1.png)
 
 Figure 2:
 
-![DietPlanUI2](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI2.png)
+![DietPlanUI2](.\assets\DietPlanUI2.png)
 
 Figure 3:
 
-![DietPlanUI3](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI3.png)
+![DietPlanUI3](.\assets\DietPlanUI3.png)
 
 We modified the statistics function on the basis of the previous one to count the number of days of completed plans and the number of days of skipped plans in the month, and added a progress icon for the user to view intuitively. In addition, we also marked the calendar with a rose-red colour block to identify the ‘Completed Plans’, and a hollow block to identify the ‘Skipped Plans ' on the calendar to enhance the interactivity of the system (Figure 1).
 The new diet plan page introduces the `Dishes preparation tutorial` function, which provides users with tutorials on how to make some healthy and simple dishes. At the bottom of the diet plan page, the system will display the recipes that are intelligently recommended by the system for the user, and the user can click the button at the bottom right corner of the corresponding recipes to view the details, including the amount of ingredients, cooking steps, and picture instructions (Figure 2).
@@ -502,6 +502,10 @@ In this section, we have added new progress tracking and data analysis functions
 
 # 7. Correction of errors
 
+The use case diagram of the fitness tutorial section was modified according to the teacher's opinion after the last defense. Now the latest use case diagram is in 5.4. Please see that part for details.
+
+![UpdateTutorialSectionUseCase](.\assets\UpdateTutorialSectionUseCase.png)
+
 For the problems pointed out by the instructor in the midterm defence, we have corrected our previous work.
 For the Diet module `Implement the diet plan` activity diagram in Assignment 1, we misused the synchronisation bar (black solid line) in the previous assignment. In fact, set`Skip Plan` and set `Complete Plan` are two parallel paths that do not need to reach the `Update adherence statistics` at the same time, so we change the activity diagram to a parallel relationship as follows:
 
@@ -513,9 +517,63 @@ Similarly, in the `Publish diet plan` activity diagram, there is only a parallel
 
 # 8. Open Questions
 
+For the next phase of the intelligent fitness platform, here are some key challenges to explore and design tasks to tackle:
 
+## 8.1 Challenges
 
++ **User Behavior Analysis and Personalized Recommendations**
 
+  Develop refined analytics to understand user fitness preferences and habits, enabling personalized recommendations. This requires optimized data collection, analysis models, and recommendation algorithms.
+
++ **Data Privacy and Security**
+
+  As the platform gathers more user data, ensuring data privacy compliance is essential, especially with sensitive health and body metrics. Implement secure storage, encrypted transmission, and strict access control measures.
+
++ **AI Movement Recognition and Feedback Accuracy**
+
+  Improve AI accuracy in recognizing and providing feedback on movement quality, ensuring consistency across different environments, whether indoors or outdoors.
+
++ **Multi-Device Compatibility and Synchronization**
+
+  Enable platform access across various devices (e.g., smartphones, tablets, smartwatches) with real-time data synchronization, enhancing the user experience.
+
++ **User Engagement and Retention**
+
+  Increase user retention through effective incentives and gamification, such as rewards, achievements, and social interaction features that encourage frequent engagement.
+
+## 8.2 Design Tasks
+
++ **Personalized Training Plan Optimization Module**
+
+  Design and implement a module that auto-generates and adjusts training plans based on users’ history, fitness goals, and current health metrics, including adaptive load adjustments and suggested training times.
+
++ **Advanced Data Analysis Report Features**
+
+  Expand report capabilities with more analytical dimensions (e.g., monthly trends, muscle growth rate), including intuitive charts and visualizations to help users understand their fitness progress.
+
++ **Social Interaction and Challenges**
+
+  Introduce social interaction features such as friend challenges, group fitness plans, and a leaderboard to encourage user interaction and engagement.
+
++ **Multilingual and Localization Support**
+
+  Design support for multiple languages and adapt the platform to fit local fitness habits and preferences, including interface translation and regional customization.
+
++ **Expanded AI Assistant Functions**
+
+  Extend the AI assistant’s capabilities to include dietary suggestions, sleep management, and other health aspects to enhance users’ overall fitness and wellness.
+
++ **Dynamic Load Adjustment and Real-Time Feedback**
+
+  Create a real-time load adjustment system based on metrics like heart rate and respiratory rate, providing dynamic intensity adjustments and guidance to help users avoid injuries and overtraining.
+
++ **Social Media and Content Sharing Features**
+
+  Design features that allow users to share fitness data, achievements, and specific training content on social media, promoting fitness achievements and encouraging user sharing.
+
++ **User Feedback and Continuous Improvement Loop**
+
+  Establish a feedback collection mechanism for users to report issues or suggest improvements, and periodically optimize the system based on this feedback to keep functionality up-to-date.
 
 # 9. The Annotated References
 
@@ -523,13 +581,13 @@ Similarly, in the `Publish diet plan` activity diagram, there is only a parallel
 
  
 
-# 9. Contributes
+# 10. Contributes
 
 In the implementation process of the project, all members actively discuss and participate seriously, according to their respective interests and ability, to complete the task on time and with high quality. Harmonious team atmosphere, smooth communication and high efficiency. The division of labor and contribution of our group are like the following:
 
-|          Members           | Part 1 | Part 2 | Part 3 | Part 4 | Part 5 | Part 6 | Part 7 | Part 8 | SCORE WEIGHT |
-| :------------------------: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----------: |
-| 2154286 <br>Weicheng Zheng |   √    |   √    |        |   √    |        |   √    |   √    |   √    |     25%      |
-|  2253744 <br/>Juekai Lin   |   √    |        |   √    |   √    |   √    |   √    |        |   √    |     25%      |
-|   2153085<br/> Lixin Ma    |   √    |   √    |        |   √    |        |   √    |   √    |   √    |     25%      |
-|  2154284 <br/>Junhao Yang  |   √    |        |   √    |   √    |        |   √    |        |   √    |     25%      |
+|          Members           | Part 1 | Part 2 | Part 3 | Part 4 | Part 5 | Part 6 | Part 7 | Part 8 | Part9 | SCORE WEIGHT |
+| :------------------------: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :---: | :----------: |
+| 2154286 <br>Weicheng Zheng |   √    |   √    |        |   √    |        |   √    |   √    |   √    |   √   |     25%      |
+|  2253744 <br/>Juekai Lin   |   √    |        |   √    |   √    |   √    |   √    |        |   √    |   √   |     25%      |
+|   2153085<br/> Lixin Ma    |   √    |   √    |        |   √    |        |   √    |   √    |   √    |   √   |     25%      |
+|  2154284 <br/>Junhao Yang  |   √    |        |   √    |   √    |        |   √    |        |   √    |   √   |     25%      |
