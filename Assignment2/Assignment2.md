@@ -23,8 +23,9 @@ Compared with the previous document, we added new content in each subsystem. The
   <img src="./assets/Scope4.png" alt="Image 4" style="width: 102px;"/>
   <img src="./assets/Scope5.png" alt="Image 5" style="width: 102px;"/>
   <img src="./assets/Scope6.png" alt="Image 6" style="width: 102px;"/>
-  <img src="./assets/Scope7.png" alt="Image 7" style="width: 102px;"/>e
+  <img src="./assets/Scope7.png" alt="Image 7" style="width: 102px;"/>
 </p>
+
 
 
 
