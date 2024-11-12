@@ -418,6 +418,8 @@ Use Case: **View dish tutorials**
 
 ## 5.3 Updated Case: Login with Wechat
 
+**Updated Activity Diagram**
+
 ![Login_Act](./assets/Login_Act.png)
 
 Updated Use Case: **Login**
@@ -472,17 +474,17 @@ Users can quickly compare options at a glance, and if they want more information
 
 ## 6.2 Diet Plan Page update
 
-Figure 1:
+**Figure 1:**
 
-![image-20241112185655642](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI1.png)
+![image-20241112185655642](.\assets\DietPlanUI1.png)
 
-Figure 2:
+**Figure 2:**
 
-![DietPlanUI2](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI2.png)
+![DietPlanUI2](.\assets\DietPlanUI2.png)
 
-Figure 3:
+**Figure 3:**
 
-![DietPlanUI3](D:\SAD\SAD-2024fall-PingSun\Assignment2\assets\DietPlanUI3.png)
+![DietPlanUI3](.\assets\DietPlanUI3.png)
 
 We modified the statistics function on the basis of the previous one to count the number of days of completed plans and the number of days of skipped plans in the month, and added a progress icon for the user to view intuitively. In addition, we also marked the calendar with a rose-red colour block to identify the ‘Completed Plans’, and a hollow block to identify the ‘Skipped Plans ' on the calendar to enhance the interactivity of the system (Figure 1).
 The new diet plan page introduces the `Dishes preparation tutorial` function, which provides users with tutorials on how to make some healthy and simple dishes. At the bottom of the diet plan page, the system will display the recipes that are intelligently recommended by the system for the user, and the user can click the button at the bottom right corner of the corresponding recipes to view the details, including the amount of ingredients, cooking steps, and picture instructions (Figure 2).
