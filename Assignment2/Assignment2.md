@@ -515,13 +515,33 @@ Similarly, in the `Publish diet plan` activity diagram, there is only a parallel
 
 
 
-
-
 # 9. The Annotated References
 
+1. https://www.tutorialspoint.com/software_architecture_design/index.htm
 
+   This comprehensive guide covers essential aspects of software architecture and design, providing insights into structuring applications for scalability, efficiency, and maintainability. For the KeepFit project, these principles are fundamental to creating a robust architecture capable of supporting features like personalized diet plans, workout routines, and equipment management. The guide explains architectural patterns (such as layered, client-server, and microservices), each with unique benefits for structuring modular applications. For KeepFit, a layered architecture could separate user interaction from data processing and storage, improving modularity and simplifying development and debugging.
 
- 
+   Additionally, the guide emphasizes the importance of design quality attributes like performance, security, and scalability, which are critical in ensuring that KeepFit operates smoothly as user numbers grow. By adopting principles like separation of concerns and utilizing design patterns for efficient component interaction, we can create a system that handles complex operations, such as real-time data updates for workouts and diet recommendations, without sacrificing responsiveness.
+
+2. **https://zhuanlan.zhihu.com/p/109655171**
+
+   In the context of the KeepFit project, understanding UML class diagrams is essential for establishing a structured and maintainable architecture that defines relationships among key components like user profiles, workout routines, diet plans, and equipment management. This article’s focus on class diagrams aligns directly with KeepFit’s need to clearly model the static structures and interdependencies across its diverse features. By applying principles from this guide, we can accurately represent the class hierarchies and relationships within KeepFit, clarifying how components such as User, DietPlan, WorkoutRoutine, and Equipment interact, either through inheritance, associations, or dependencies. Notations covered in the article, such as “+” for public and “-” for private members, support the application’s encapsulation needs, ensuring secure, controlled interactions across modules.
+
+   Moreover, understanding relationships like aggregation, composition, and dependency enables us to capture “has-a” and “uses” dynamics essential to KeepFit’s core functionality—for example, connecting Equipment with WorkoutRoutine, where both components play distinct but interlinked roles. The article also provides a foundation for extensibility, ensuring that KeepFit’s design can accommodate future enhancements, such as adding progress tracking or other fitness-related features, with minimal disruption to the core structure. Overall, incorporating UML class diagram principles enables the KeepFit team to plan, communicate, and manage complex interactions effectively, resulting in a scalable, user-centered fitness platform that remains adaptable and efficient as it evolves.
+
+3. https://design-patterns.readthedocs.io/zh-cn/latest/read_uml.html
+
+   This article is a tutorial blog on drawing UML class diagrams. Through the examples in the article, we gained a deeper understanding of the six types of relationships between classes and successfully applied them to our class design. For instance, in the dietary module class design, the `AIAnalysis` class serves as an attribute of the `DietRecord` class, and the relationship between them is a composition, represented by a solid diamond shape.
+
+4. https://juejin.cn/post/6965684798174167076
+
+   This article is a tutorial blog on drawing UML sequence diagrams. In the article, the author distinguishes between synchronous messages, asynchronous messages, return messages, and self-messages, and also introduces logical control structures such as alternative and choice combinations. Through this content, the article helps us gain a deeper understanding of the structure and usage scenarios of sequence diagrams, which we have successfully applied to our own sequence diagrams.
+
+5. https://mi.talkingdata.com/report-detail.html?id=544
+
+   TalkingData The report provides an in-depth analysis of the portraits of Chinese sports and fitness people, covering the age, behavior habits and geographical distribution of users. Data show that the use rate of fitness APP is gradually increasing among young people, mainly preferring aerobic and strength training. The report also points out the time period that users exercise frequently, common functions, and participation differences between cities, and analyzes user motivation, common exercise environments, and the brand's marketing strategies among different fitness groups. 
+
+   This report offers valuable guidance for designing new fitness platform features and effectively displaying exercise data. By analyzing user behaviors, preferences, and peak usage times, it suggests optimizing app interfaces with features that align with users' motivations and exercise routines, such as enhanced tracking for cardio and strength workouts. The report's insights on popular app functionalities and regional activity differences can also inform feature prioritization and data visualization design, helping to create an engaging, user-centered experience tailored to fitness app demographics.
 
 # 9. Contributes
 
