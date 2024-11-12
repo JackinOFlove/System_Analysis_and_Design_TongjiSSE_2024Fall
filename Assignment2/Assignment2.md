@@ -399,7 +399,8 @@ Use Case: **Smart Price Comparison for Fitness Equipment**
 | **Alternative Path** | 1. After viewing the price comparison pop-up, the user decides not to proceed with any purchase and closes the pop-up window without selecting a platform link.<br />2. If price or review data from an e-commerce platform is temporarily unavailable, the system displays a message indicating the missing data for that platform, allowing the user to view available options or try again later. |
 | **Post-condition**   | 1. If the user completes a purchase on an external platform, the transaction is finalized on that platform, and the fitness app session remains active for continued browsing.<br />2. If the user completes a purchase on an external platform, the transaction is finalized on that platform, and the fitness app session remains active for continued browsing. |
 
-## 5.2.New Case:Dishes preparation tutorial
+
+## 5.2 New Case:Dishes preparation tutorial
 
 ![UseCaseDietUpdate](.\assets\UseCaseDietUpdate.png)
 
@@ -415,6 +416,47 @@ Use Case: **View dish tutorials**
 | **Alternative  Path** | 1. If the selected tutorial cannot be displayed:<br><tab>1.1.System displays an error message and logs the issue.<br><tab>1.2.User may choose a different tutorial. |
 | **Post condition**    | User successfully views the details of the tutorial.         |
 
+## 5.3 Updated Case: Login with Wechat
+
+![Login_Act](./assets/Login_Act.png)
+
+Updated Use Case: **Login**
+
+---
+
+| USE CASE              | LOGIN                                                        |
+| --------------------- | ------------------------------------------------------------ |
+| **ID**                | ***UC02***                                                   |
+| **Specification**     | Visitors type in their account ID and password to log in to the account. |
+| **Actors**            | **Visitor**                                                  |
+| **Pre-condition**     | Visitors have their own account and click "login" on the website. |
+| **Basic Path**        | 1. Visitors enter the website. <br/>2. Visitors click "login". <br/>3.1 If visitors fill in their username and password for the system to check and click "login". <br/><tab/>3.1.1  Visitors fill in their username and password.<br/><tab/>3.1.2 The system verifies the correctness of the username and password<br/>3.2 If visitors click "Continue with Wechat". <br/><tab/>3.2.1  The system pops up a Wechat QR code to scan.<br/><tab/>3.2.2 The visitor use their Wechat apps to scan the code and get authenticated<br/>4. Visitors successfully log in. |
+| **Alternative  Path** | 1. Visitors input the username and password that do not match<br/> <tab/>The system will show a notification: "Fail to log in: incorrect username or password", and exit. |
+| **Post condition**    | Visitors enter the system, become users, and can access users'  operations. |
+
+## 5.4 New Case: View the fitness progress and data
+
+In this section, we have added a new use case diagram where users can **view the fitness progress and the function points of the data section**. 
+
+*At the same time, this part of the use case diagram was modified according to the teacher's opinion after the last defense.*
+
+![UpdateTutorialSectionUseCase](.\assets\UpdateTutorialSectionUseCase.png)
+
+Use Case: **View the fitness progress and data**
+
+------
+
+| **USE CASE**         | View the fitness progress and data                           |
+| -------------------- | ------------------------------------------------------------ |
+| **ID**               | ***UC06***                                                   |
+| **Specification**    | This use case describes how the user can track their fitness progress and view data analysis in the tutorial section. Users can check their progress over different dates, see various physical indicators, and view/export detailed exercise reports. |
+| **Actors**           | **User**, **System**                                         |
+| **Pre-condition**    | 1. The user has logged into the system. 2. The user has accessed the tutorial content page. |
+| **Basic Path**       | 1. The user clicks on the data analysis button on the tutorial content page. <br />2. The system opens a floating window for data analysis and progress tracking. <br />3. The user selects a date to view specific fitness progress for that day. <br />4. The system displays the user’s fitness data, including relevant physical indicators like weight and body fat percentage, and recent exercise data (exercise time, aerobic, and anaerobic time). <br />5. The user clicks on an option to export a PDF report for a more detailed analysis. <br />6. The system generates and downloads the PDF report. |
+| **Alternative Path** | **No Data Available for Selected Date**: 1. If no fitness data is available for the selected date, the system displays a message indicating "No data available for this date." |
+| **Post-condition**   | The user successfully views fitness progress, data analysis, and exports a detailed report. |
+
+
 # 6. Updated Snapshot
 
 ## 6.1 Fitness equipment product comparison platform
@@ -426,6 +468,7 @@ Users can quickly compare options at a glance, and if they want more information
 ![image-20241112163053537](.\assets\newUI1.png)
 
 <img src="./assets/newUI2.png" style="zoom:50%;" />
+
 
 ## 6.2 Diet Plan Page update
 
@@ -447,6 +490,19 @@ It was mentioned before that when the user chooses to skip the plan, the system 
 
 
 
+
+
+## 6.3 Login & Registration Interface Snapshot
+
+In this latest UI interface, **Continued with Wechat** button is added so that users get to choose to **login with their Wechat account**. By clicking the button, they can see a QR code popping up, scanning which with their Wechat app can allow them get authenticated with their Wechat accounts without registering and typing their login information manually. This feature is provided due to the popularity of this communication app and the motivation of providing a easy-to-use platforms to all the users of this website.
+
+![UpdatedLoginPage](./assets/UpdatedLoginPage.png)
+
+## 6.3 Fitness Tutorial Section Update Snapshot
+
+In this section, we have added new progress tracking and data analysis functions. A data analysis button is added in the original tutorial content page, the user can click a small floating window, in this small page, the user can see the fitness progress and task schedule of different days by selecting the date, and in the following data report, will simply present some relevant physical indicators, such as weight, body fat rate, etc., will also present the user's recent exercise data, including the exercise time and aerobic exercise time, anaerobic exercise time, more detailed data analysis report can the user view by exporting PDF report. The following are the button addition of the original tutorial content interface and the small window for progress tracking and data analysis functions.
+
+![UpdateTutorialUI2](.\assets\UpdateTutorialUI.png)
 
 
 # 7. Open Questions
