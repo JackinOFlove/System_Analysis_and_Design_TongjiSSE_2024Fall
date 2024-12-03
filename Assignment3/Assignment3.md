@@ -289,3 +289,436 @@ Based on these technologies, the technical stack diagram for the system is as fo
 | /api/tutorial/tutorialApprove               | PUT    | token, newTutorialContents      | The administrator reviews the newly uploaded tutorial through this interface. After the audit, the tutorial becomes available, and the failure information is returned. |
 | /api/tutorial/releaseComment                | POST   | token, tutorialId, comment      | The user evaluates the specified tutorial through this interface. |
 | /api/tutorial/commentApprove                | PUT    | token, tutorialId, comment      | The administrator reviews the user's tutorial evaluation through this interface, and the approved evaluation will be displayed on the tutorial page. |
+
+Dietary Record Module
+
+| API Interface                         | Method | Parameters                                                   | Description                                                  |
+| ------------------------------------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| api/dietaryRecord/createDietaryRecord | POST   | `token`,`DietRecord`                                         | Create a new dietary record information and return whether the operation was successful and the results of the AI analysis. |
+| api/dietaryRecord/updateDietaryRecord | PUT    | `token`,`recordID`,`DietRecord`                              | Update an existing dietary record and return whether the operation is successful. |
+| api/dietaryRecord/deleteDietaryRecord | DELETE | `token`,`recordID`                                           | Delete a dietary record and return whether the operation is successful. |
+| api/dietaryRecord/getDietaryRecord    | POST   | `token`                                                      | Return the dietary records of the user.                      |
+| api/dietaryRecord/getAIanalysis       | POST   | `token`,`recordIDs`(List of recordIDs of records to be analyzed) | Send dietary records for analysis and return one, single, AI analysis result. |
+| api/dietaryRecord/saveAnalysis        | POST   | `token`,`Analysis`                                           | Save AI analysis results to the database and return whether the operation is successful. |
+
+Dietary Plan Module
+
+| API Interface                 | Method | Parameters                                                   | Description                                                  |
+| ----------------------------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| api/dietaryPlan/getAllPlan    | GET    | None                                                         | Return summarized information of all dietary plans.          |
+| api/dietaryPlan/getPlanDetail | GET    | `planID`                                                     | Return detailed information about a specific dietary plan.   |
+| api/dietaryPlan/setupComplete | POST   | `token`,`ClockinRecord`                                      | Mark a dietary plan as completed.                            |
+| api/dietaryPlan/setupSkip     | POST   | `token`,`ClockinRecord`                                      | Mark a dietary plan as skipped and log the reason for skipping. |
+| api/dietaryPlan/startPlan     | POST   | `token`,`planID`                                             | User selects current plan.                                   |
+| api/dietaryPlan/getAllDish    | GET    | None                                                         | Return summarized information of all available dishes.       |
+| api/dietaryPlan/getDishDetail | GET    | `dishID`                                                     | Return detailed information about a specific dish.           |
+| api/dietaryPlan/createPlan    | POST   | `token`, `DietPlan`                                          | Create a new dietary plan and return whether the creation was successful. |
+| api/dietaryPlan/updatePlan    | PUT    | `token`,`planID`,`DietPlan`                                  | Update an existing dietary plan and return whether the creation was successful. |
+| api/dietaryPlan/aduitPlan     | POST   | `token`,`aduitResult` ,`planID`(Approval or rejection status) | Audit the dietary plan and return the audit results.         |
+| api/dietaryPlan/getTodayPlan  | POST   | `token`                                                      | Get the details of today's corresponding plan in the user's current execution plan. |
+
+**Create Dietary Record**
+
+- **Request Type**: POST
+- **REST API**: `/api/dietaryRecord/createDietaryRecord`
+- Parameters:
+  - `token`: User token for authentication.
+  - `DietRecord`: JSON object containing the new dietary record details.
+
+- **Steps on the server side:**
+  1. Authenticate user identity.
+  2. Generate a globally unique `recordID`.
+  3. Store the record in the database.
+  4. Return the result including `recordID` and AI analysis.
+
+- **Request Example:**
+
+```json
+{
+  "token": "userToken12345",
+  "DietRecord": {
+    "userID": "user001",
+    "date": "2024-11-28",
+    "mealTime": "12:18",
+    "mealPhoto": "base64EncodedPhotoString", // Optional, Base64 encoded string if present
+    "items": [
+      {
+        "nutrientComposition": "Carbohydrates",
+        "quantity": 70
+      },
+      {
+        "nutrientComposition": "Protein",
+        "quantity": 50
+      },
+      {
+        "nutrientComposition": "Fat",
+        "quantity": 40
+      }
+    ]
+  }
+}
+```
+
+- **Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Dietary record created successfully.",
+  "recordID": "record_id_1",
+  "AIAnalysis": "Here is a brief dietary suggestion: \n 1. Protein: Include a moderate amount of shrimp, tofu, and beef tendon balls, but avoid excess.\n 2. Fat: Limit fried foods and opt for steaming or boiling methods instead.\n 3. Carbohydrates: Reduce white rice intake"
+}
+```
+
+**Get Dietary Record**
+
+- **Request Type**: POST
+- **REST API**: `/api/dietaryRecord/getDietaryRecord`
+- Parameters:
+  - `token`: User token for authentication.
+
+- **Steps on the server side:**
+  1. Authenticate user identity.
+  2. Retrieve the dietary record(s) from the database using the provided `recordID`.
+  3. Return the dietary record(s) to the client.
+
+- **Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Dietary records retrieved successfully.",
+  "dietaryRecords": [
+    {
+      "recordID": "record12345",
+      "userID": "user001",
+      "date": "2024-11-28",
+      "mealTime": "12:18",
+      "mealPhoto": "base64EncodedPhotoString", // Base64 encoded string, optional
+      "items": [
+        {
+          "nutrientComposition": "Carbohydrates",
+          "quantity": 70
+        },
+        {
+          "nutrientComposition": "Protein",
+          "quantity": 50
+        },
+        {
+          "nutrientComposition": "Fat",
+          "quantity": 40
+        }
+      ]
+    },
+    {
+      "recordID": "record67890",
+      "userID": "user001",
+      "date": "2024-11-29",
+      "mealTime": "19:00",
+      "mealPhoto": "", 
+      "items": [
+        {
+          "nutrientComposition": "Carbohydrates",
+          "quantity": 60
+        },
+        {
+          "nutrientComposition": "Protein",
+          "quantity": 45
+        },
+        {
+          "nutrientComposition": "Fat",
+          "quantity": 35
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Get AI Analysis**
+
+- **Request Type**: POST
+- **REST API**: `/api/dietaryRecord/getAIanalysis`
+- Parameters:
+  - `token`: User token for authentication.
+  - `recordIDs`: An array of dietary record IDs to analyze.
+
+- **Steps on the server side:**
+  1. Authenticate user identity. 
+  2. Read each dietary record based on the provided `recordIDs`.
+  3. Analyze using an AI model.
+  4. Package and return the analysis results to the client.
+
+- **Request Example:**
+
+```json
+{
+  "token": "userToken12345",
+  "recordIDs": [
+    "record_id_1",
+    "record_id_2",
+    "record_id_3"
+  ]
+}
+```
+
+- **Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Request succeed.",
+  "results": [
+    {
+      "analysisID": "analysis_id_1",
+      "recordIDs": [
+        "record_id_1",
+        "record_id_2",
+        "record_id_3"
+      ],
+      "result": "Here is a brief dietary suggestion: \n 1. Protein: Include a moderate amount of shrimp, tofu, and beef tendon balls, but avoid excess.\n 2. Fat: Limit fried foods and opt for steaming or boiling methods instead.\n 3. Carbohydrates: Reduce white rice intake"
+    }
+  ]
+}
+```
+
+**Get All plan**
+
+- **Request Type**: GET
+- **REST API**: `/api/dietaryPlan/getAllPlan`
+
+- **Steps on the server side:**
+  1. Authenticate user identity and read the corresponding UserID and role.
+  2. Based on the user's role, determine the content of the plans to return:
+     - For regular users or VIPs, return all plans with permission 0 (public plans).
+     - For content creators, return all permission 0 plans and permission 1 plans where the creator is the current UserID.
+     - For administrators, return all plans.
+  3. Retrieve the relevant plan IDs, titles, and summaries from the database.
+  4. Return the dietary plan information.
+
+- **Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "All dietary plans retrieved successfully.",
+  "plans": [
+    {
+      "planID": "plan_id_123",
+      "title": "Low Carb Plan",
+      "summary": "A low carbohydrate diet plan designed for weight loss."
+    },
+    {
+      "planID": "plan_id_456",
+      "title": "High Protein Plan",
+      "summary": "A high protein diet plan designed for muscle gain."
+    }
+  ]
+}
+```
+
+**Setup current plan**
+
+- **Request Type**: POST
+- **REST API**: `/api/dietaryPlan/setupCurrentPlan`
+- Parameters:
+  - `token`: User token for authentication.
+  - `planID`: The ID of the plan to set as the current plan.
+
+- **Steps on the server side:**
+  1. Authenticate user identity and read the corresponding UserID.
+  2. Generate the current request time as `startDate` and a globally unique `executionID`.
+  3. Store the `PlanExecution` in the database.
+  4. Return the result including the `executionID`.
+
+- **Request Example:**
+
+```json
+{
+  "token": "userToken12345",
+  "planID": "plan_id_123"
+}
+```
+
+- **Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Current plan set successfully.",
+  "executionID": "execution_id_01"
+}
+```
+
+**Get today plan**
+
+- **Request Type**: POST
+- **REST API**: `/api/dietaryPlan/getTodayPlan`
+- Parameters:
+  - `token`: User token for authentication.
+
+- **Steps on the server side:**
+  1. Authenticate user identity and read the corresponding UserID.
+  2. Retrieve the latest record for the UserID to get the current plan and its start date.
+  3. Retrieve the schedule of the current plan from the database.
+  4. Calculate today's plan based on the start date, today's date, and the schedule.
+  5. Return the content of today's plan from the schedule.
+
+- **Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Today's plan retrieved successfully.",
+  "todayPlan": {
+    "Breakfast": {
+      "calories": "293kcal",
+      "content": "Skimmed milk (1 box), ..."
+    },
+    "Lunch": {
+      "calories": "547kcal",
+      "content": "Sweet potato rice (1 bowl)"
+    },
+    "Dinner": {
+      "calories": "421kcal",
+      "content": "Rice (1 bowl)"
+    }
+  }
+}
+```
+
+**Setup complete**
+
+- **Request Type**: POST
+- **REST API**: `/api/dietaryPlan/setupComplete`
+- **Parameters**:
+  - `token`: User token for authentication.
+  - `clockinRecord`: JSON object containing the completion details.
+
+- **Steps on the server side:**
+  1. Authenticate user identity.
+  2. Store the completion status in the database.
+  3. Return the success message and `executionID`.
+
+- **Request Example:**
+
+```json
+{
+  "token": "userToken12345",
+  "clockinRecord": {
+    "executionID": "execution_id_01",
+    "executionDate": "2024-12-03T08:00:00Z",
+    "status": 0, // 0: complete, 1: skip
+    "reason": "" // Optional field, empty on completion status
+  }
+}
+```
+
+- **Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Plan completion recorded successfully.",
+  "executionID": "execution_id_01"
+}
+```
+
+**Update plan**
+
+- **Request Type**: PUT
+- **REST API**: `/api/dietaryPlan/updatePlan`
+- Parameters:
+  - `token`: User token for authentication.
+  - `planID`: The ID of the plan to update.
+  - `DietPlan`: JSON object containing the new details of the diet plan.
+
+- **Steps on the server side:**
+  1. Authenticate user identity and verify the user's authority to update the plan.
+  2. Read from the backend database to check if the `planID` corresponds to an existing plan.
+  3. Update the corresponding plan in the database with the new `DietPlan` content.
+
+- **Request Example:**
+
+```jso
+{
+  "token": "userToken12345",
+  "planID": "plan_id_1",
+  "DietPlan": {
+    "title": "Updated Low Carb Plan",
+    "summary": "An updated low carbohydrate diet plan designed for weight loss.",
+    "details": {
+      "meals": [
+        {
+          "mealType": "Breakfast",
+          "items": [
+            {
+              "name": "Eggs",
+              "quantity": "2 eggs"
+            },
+            {
+              "name": "Avocado",
+              "quantity": "1/2 avocado"
+            }
+          ]
+        },
+        {
+          "mealType": "Lunch",
+          "items": [
+            {
+              "name": "Grilled Chicken",
+              "quantity": "150g"
+            },
+            {
+              "name": "Mixed Salad",
+              "quantity": "1 bowl"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+```
+
+- **Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Dietary plan updated successfully."
+}
+```
+
+**Audit plan**
+
+- **Request Type**: POST
+- **REST API**: `/api/dietaryPlan/auditPlan`
+- **Parameters**:
+  - `token`: User token for authentication.
+  - `auditResult`: Boolean indicating whether the plan is approved or not.
+  - `planID`: The ID of the plan to audit.
+
+- **Steps on the server side:**
+  1. Authenticate the user's administrator identity.
+  2. Update the plan's audit status (permission field) in the backend database.
+
+- **Request Example:**
+
+```json
+{
+  "token": "adminToken12345",
+  "auditResult": true,
+  "planID": "plan_id_1"
+}
+```
+
+- **Response Example:**
+
+```json
+{
+  "status": "success",
+  "message": "Plan audited successfully."
+}
+```
+
