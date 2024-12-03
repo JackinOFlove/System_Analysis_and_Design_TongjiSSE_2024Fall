@@ -231,45 +231,48 @@ Based on these technologies, the technical stack diagram for the system is as fo
 
 ![SystemArchitecture](.\assets\SystemArchitecture.png)
 
+Combining the technical architecture and the microservice architecture, we ensure the integrity and correctness of the system design, and improve the scalability and flexibility of the system by dividing the independent service modules. In the design process, we focus on the interface between the services, the data flow and the dependencies, and finally form the data and technical service model diagram:
 
+![DataAndtechnicalserviceModel](.\assets\DataAndtechnicalserviceModel.png)
 
+## 2.2. Subsystems and Interfaces
 
+According to the principle of domain-driven design, to ensure that the business logic of the system is implemented efficiently and accurately, we divide the individual business functions in the system into five main areas. This division not only helps to clarify the scope of responsibility in each field, but also ensures that the degree of coupling between services in each field is minimized, thus optimizing the overall structure and maintainability of the system.
 
++ **Login and Registration Subsystem**
++ **Fitness Tutorial Subsystem**
++ **Fitness Action Coaching System**
++ **Fitness Equipment System**
++ **Healthy Diet Subsystem**
 
+Based on the above domain design, in order to meet the demand for moderately granular services in the system design, we further divide the microservices into the following specific subsystems. This division is functionally oriented and aims to ensure that each subsystem can independently assume specific responsibilities, while maintaining low-coupling relationships with other subsystems.
 
++ **Login and Registration Service Subsystem**
++ **Fitness Tutorial Subsystem**
++ **Fitness Action Coaching System**
++ **Fitness Equipment System**
++ **Healthy Diet Subsystem**
+  + Dietary Record Module
+  + Dietary Plan Module
 
+### 2.2.1. Login and Registration Subsystem
 
+| API Interface               | Method | Parameters         | Description                                                  |
+| --------------------------- | ------ | ------------------ | ------------------------------------------------------------ |
+| /api/ua/login/passwd        | POST   | username, password | Log in using username and password, include user type (system). |
+| /api/ua/logOut              | POST   | token              | Log out, clear token and clean up permission cache.          |
+| /api/ua/login/wechatQR      | POST   | wechat_code        | Log in using information from WeChat QR login.               |
+| /api/ua/user/info           | GET    | token              | Get user information.                                        |
+| /api/ua/user/info           | POST   | token, info        | Set user information.                                        |
+| /api/ua/user/setPasswd      | POST   | token, password    | Set user password.                                           |
+| /api/ua/user/del            | POST   | token              | Delete user.                                                 |
+| /api/ua/user/register/new   | POST   | None               | Create a temporary user during registration, return token information. |
+| /api/ua/user/register/check | POST   | toke               | Check if the temporary user information is correct and if contact information is verified. |
+| /api/ua/user/confirm        | POST   | verification       | Call correctly to confirm the contact information is correct. |
+| /api/ua/token/refresh       | POST   | token              | Refresh token.                                               |
+| /api/ua/token/check         | POST   | token              | Check if the token is valid.                                 |
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### 2.2.2. Fitness Tutorial Subsystem
 
 | API Interface                               | Method | Parameters                      | Description                                                  |
 | ------------------------------------------- | ------ | ------------------------------- | ------------------------------------------------------------ |
@@ -290,34 +293,277 @@ Based on these technologies, the technical stack diagram for the system is as fo
 | /api/tutorial/releaseComment                | POST   | token, tutorialId, comment      | The user evaluates the specified tutorial through this interface. |
 | /api/tutorial/commentApprove                | PUT    | token, tutorialId, comment      | The administrator reviews the user's tutorial evaluation through this interface, and the approved evaluation will be displayed on the tutorial page. |
 
-Dietary Record Module
+### 2.2.3. Fitness Action Coaching System
+
+| API INTERFACE                   | METHOD | PARAMETERS                         | **INTERFACE INTRODUCTION**                                   |
+| ------------------------------- | ------ | ---------------------------------- | ------------------------------------------------------------ |
+| /api/AICoaching/upload          | POST   | token, videoUrl, actionName        | Users upload fitness related images or videos and return the review results and legality check results. |
+| /api/AICoaching/getAllNoDetails | GET    | token                              | Obtain abbreviated information of all historical analysis records of users |
+| /api/AICoaching/getOneDetail    | GET    | token, analysisID                  | Retrieve detailed information of a user's historical record  |
+| /api/AICoaching/                | DELETE | token, analysisID                  | Delete the specified historical analysis records.            |
+| /api/AICoaching/AIanalysis      | POST   | token, videoUrl, actionName        | Call the Qwen VL large model for analysis, return action analysis and corrective suggestions. |
+| /api/AICoaching/planCheckIn     | POST   | token, actionName, imgUrl/videoUrl | The AI analysis interface reviews whether the user's fitness plan check-in content meets the standards and returns a check-in success or failure status. |
+
+### 2.2.4. Fitness Equipment System
+
+| API INTERFACE                        | METHOD | PARAMETERS                          | **INTERFACE INTRODUCTION**                                   |
+| ------------------------------------ | ------ | ----------------------------------- | ------------------------------------------------------------ |
+| /api/equipment/recommend             | GET    | token                               | Recommend fitness equipment based on user information and return the list in card form. |
+| /api/equipment/search                | GET    | token, query, page, limit           | Retrieve relevant fitness equipment based on search keywords |
+| /api/equipment/getOneDetail          | GET    | equipmentID                         | Obtain detailed information about designated equipment, including ratings, experience analysis, historical evaluations, etc. |
+| /api/equipment/{equipmentID}/review  | POST   | token, equipmentID, rating, comment | Users evaluate and rate the equipment.                       |
+| /api/equipment/{equipmentID}/compare | GET    | token, equipmentID                  | Obtain the prices, product introductions, and user reviews of designated equipment on different e-commerce platforms, and recommend the most affordable options |
+| /api/equipment/{equipmentID}/chat    | POST   | token, equipmentID, imgUrl, message | Provide intelligent answers for VIP users to help them further understand equipment usage methods |
+| /api/equipment/{equipmentID}/accept  | POST   | token, equipmentID, responseID      | Users can directly insert intelligent answers as comments into equipment evaluations. |
+
+### 2.2.5. Healthy Diet Subsystem
+
++ **Dietary Record Module**
 
 | API Interface                         | Method | Parameters                                                   | Description                                                  |
 | ------------------------------------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| api/dietaryRecord/createDietaryRecord | POST   | `token`,`DietRecord`                                         | Create a new dietary record information and return whether the operation was successful and the results of the AI analysis. |
-| api/dietaryRecord/updateDietaryRecord | PUT    | `token`,`recordID`,`DietRecord`                              | Update an existing dietary record and return whether the operation is successful. |
-| api/dietaryRecord/deleteDietaryRecord | DELETE | `token`,`recordID`                                           | Delete a dietary record and return whether the operation is successful. |
-| api/dietaryRecord/getDietaryRecord    | POST   | `token`                                                      | Return the dietary records of the user.                      |
-| api/dietaryRecord/getAIanalysis       | POST   | `token`,`recordIDs`(List of recordIDs of records to be analyzed) | Send dietary records for analysis and return one, single, AI analysis result. |
-| api/dietaryRecord/saveAnalysis        | POST   | `token`,`Analysis`                                           | Save AI analysis results to the database and return whether the operation is successful. |
+| api/dietaryRecord/createDietaryRecord | POST   | token,DietRecord                                             | Create a new dietary record information and return whether the operation was successful and the results of the AI analysis. |
+| api/dietaryRecord/updateDietaryRecord | PUT    | token,recordID,DietRecord                                    | Update an existing dietary record and return whether the operation is successful. |
+| api/dietaryRecord/deleteDietaryRecord | DELETE | token,recordID                                               | Delete a dietary record and return whether the operation is successful. |
+| api/dietaryRecord/getDietaryRecord    | POST   | token                                                        | Return the dietary records of the user.                      |
+| api/dietaryRecord/getAIanalysis       | POST   | token, recordIDs(List of recordIDs of records to be analyzed) | Send dietary records for analysis and return one, single, AI analysis result. |
+| api/dietaryRecord/saveAnalysis        | POST   | token, Analysis                                              | Save AI analysis results to the database and return whether the operation is successful. |
 
-Dietary Plan Module
+**Dietary Plan Module**
 
-| API Interface                 | Method | Parameters                                                   | Description                                                  |
-| ----------------------------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| api/dietaryPlan/getAllPlan    | GET    | None                                                         | Return summarized information of all dietary plans.          |
-| api/dietaryPlan/getPlanDetail | GET    | `planID`                                                     | Return detailed information about a specific dietary plan.   |
-| api/dietaryPlan/setupComplete | POST   | `token`,`ClockinRecord`                                      | Mark a dietary plan as completed.                            |
-| api/dietaryPlan/setupSkip     | POST   | `token`,`ClockinRecord`                                      | Mark a dietary plan as skipped and log the reason for skipping. |
-| api/dietaryPlan/startPlan     | POST   | `token`,`planID`                                             | User selects current plan.                                   |
-| api/dietaryPlan/getAllDish    | GET    | None                                                         | Return summarized information of all available dishes.       |
-| api/dietaryPlan/getDishDetail | GET    | `dishID`                                                     | Return detailed information about a specific dish.           |
-| api/dietaryPlan/createPlan    | POST   | `token`, `DietPlan`                                          | Create a new dietary plan and return whether the creation was successful. |
-| api/dietaryPlan/updatePlan    | PUT    | `token`,`planID`,`DietPlan`                                  | Update an existing dietary plan and return whether the creation was successful. |
-| api/dietaryPlan/aduitPlan     | POST   | `token`,`aduitResult` ,`planID`(Approval or rejection status) | Audit the dietary plan and return the audit results.         |
-| api/dietaryPlan/getTodayPlan  | POST   | `token`                                                      | Get the details of today's corresponding plan in the user's current execution plan. |
+| API Interface                 | Method | Parameters                                               | Description                                                  |
+| ----------------------------- | ------ | -------------------------------------------------------- | ------------------------------------------------------------ |
+| api/dietaryPlan/getAllPlan    | GET    | None                                                     | Return summarized information of all dietary plans.          |
+| api/dietaryPlan/getPlanDetail | GET    | planID                                                   | Return detailed information about a specific dietary plan.   |
+| api/dietaryPlan/setupComplete | POST   | token, ClockinRecord                                     | Mark a dietary plan as completed.                            |
+| api/dietaryPlan/setupSkip     | POST   | token, ClockinRecord                                     | Mark a dietary plan as skipped and log the reason for skipping. |
+| api/dietaryPlan/startPlan     | POST   | token, planID                                            | User selects current plan.                                   |
+| api/dietaryPlan/getAllDish    | GET    | None                                                     | Return summarized information of all available dishes.       |
+| api/dietaryPlan/getDishDetail | GET    | dishID                                                   | Return detailed information about a specific dish.           |
+| api/dietaryPlan/createPlan    | POST   | token, DietPlan                                          | Create a new dietary plan and return whether the creation was successful. |
+| api/dietaryPlan/updatePlan    | PUT    | token, planID, DietPlan                                  | Update an existing dietary plan and return whether the creation was successful. |
+| api/dietaryPlan/aduitPlan     | POST   | token, aduitResult, planID(Approval or rejection status) | Audit the dietary plan and return the audit results.         |
+| api/dietaryPlan/getTodayPlan  | POST   | token                                                    | Get the details of today's corresponding plan in the user's current execution plan. |
 
-**Create Dietary Record**
+## 2.3. Interface Specification
+
+Since the intelligent fitness system platform involves different roles and authority management, in order to ensure the privacy security of data and the efficiency of information transmission in the process of system operation, the project needs to include a special security service module, responsible for user login authentication and authority control. Considering that the front and back end architecture of the system is separated, and there are a series of requirements, such as authentication and security access, we chose sa-token as the security framework. The sa-token isa lightweight and powerful framework capable of providing efficient, flexible authentication and licensing capabilities. By using sa-token, we can effectively manage the permissions of different user roles, ensure the data security of the system, while ensuring the fluency of user operation and the efficiency of the authentication process, so as to support the stable operation and rapid iteration of the system.
+
+### 2.3.1. Internal Interface Description
+
++ **Login Authentication**
+
+Before users can access the various features of our project, they must first authenticate their login credentials. This is necessary because access to certain operational interfaces is restricted to authorized users only. Login authentication serves as a prerequisite for performing any operations that require authenticated user permissions.
+
+To ensure smooth and secure user interactions, the sa-token framework is utilized to manage the login process. It provides a set of API interfaces that allow the system to check the current login status, as well as retrieve token-related information such as validity, expiration, and user identity. These interfaces seamlessly integrate with other parts of the system, enabling efficient authentication management and facilitating subsequent user operations that require authentication.
+
+By leveraging the sa-token framework, our project can ensure that all operations are performed securely and only by authenticated users, enhancing both functionality and security across the platform.
+
+| API                      | Method | Parameters             | Description                                                  |
+| ------------------------ | ------ | ---------------------- | ------------------------------------------------------------ |
+| `/api/ua/login/passwd`   | POST   | `username`, `password` | Log in using username and password, include user type (system) |
+| `/api/ua/logOut`         | POST   | `token`                | Log out, clear token and clean up permission cache           |
+| `/api/ua/login/wechatQR` | POST   | `wechat_code`          | Log in using information from WeChat QR login                |
+| `/api/ua/token/refresh`  | POST   | `token`                | Refresh token                                                |
+| `/api/ua/token/check`    | POST   | `token`                | Check if the token is valid                                  |
+
+### 2.3.2. External Interface Description
+
+To enhance development efficiency and reduce costs, we have selected a range of third-party APIs to provide users with intelligent, personalized, and convenient functionality and services.
+
+**Alibaba Cloud Bailian Platform's Large Model Service API**:
+The Alibaba Cloud Bailian platform provides large model services based on multimodal technology, suitable for intelligent analysis and generation tasks in various scenarios. Its features include powerful performance, support for multimodal interaction, high customizability, and mature API service interfaces.
+This API supports the following functionalities in the system:
+
+- **Fitness Action Analysis**:
+  Analyze the standardization and accuracy of users' fitness movements through visual capabilities and provide targeted improvement suggestions.
+  Combine action recognition to help users track training progress and health data.
+- **Smart Answering Functionality**:
+  Fitness equipment assistants use the NLP capabilities of the large model to answer users' questions, provide personalized suggestions, and offer equipment guidance.
+- **Customized Fitness Plans**:
+  Generate personalized fitness plans based on users' physical data, exercise history, and goals, increasing user engagement.
+- **Diet Analysis and Suggestions**:
+  Provide optimization suggestions by analyzing users' dietary images or records, helping them manage diet and health.
+
+**WeChat Login API**:
+The WeChat Login API is a convenient third-party login service provided by WeChat, allowing users to quickly log in to other platforms via their WeChat accounts while supporting access to basic user information (such as nickname, avatar, etc.). Its features include simplicity, high efficiency, wide user coverage, and secure authentication.
+
+In our project, we implement WeChat QR Code login to provide users with a quick and secure login method. Users can scan the WeChat QR code on the website, grant authorization, and log in directly. This method utilizes WeChat's Open Platform API.
+
+This API supports the following functionalities in the system:
+
+- **Convenient User Login**:
+  Users can log in with one click via WeChat, reducing the complexity of registration processes and enhancing user experience.
+- **User Data Support**:
+  Access to basic user information (e.g., nickname, avatar) enhances the system's personalized display and interaction capabilities.
+- **Retention Rate Improvement**:
+  Reduces the burden of account management, lowering user attrition rates.
+- **Wechat**
+- **Simple Flow**
+  1. **Generate QR Code**: The website generates a WeChat QR code.
+  2. **User Scans QR Code**: The user scans the QR code with their WeChat app.
+  3. **Authorization**: After scanning, the user authorizes the login.
+  4. **Exchange Code for Tokens**: The backend exchanges the authorization code for an access token and openid.
+  5. **Retrieve User Info**: With the access token and openid, the backend fetches the user's basic information.
+  6. **Login Complete**: The user is logged in and can proceed with using the system.
+
+**Alibaba Cloud Object Storage Service (OSS) API**:
+Alibaba Cloud OSS (Object Storage Service) is a cloud storage service designed for massive data storage, supporting distributed storage and high-speed access. Its features include high scalability, high reliability, and cost-effectiveness.
+This API supports the following functionalities in the system:
+
+- **User Data Storage**:
+  Store multimedia files uploaded by users, such as images and videos.
+- **System Resource Storage**:
+  Store static system resources such as fitness equipment images and product icons to optimize system loading speed.
+- **Distributed Storage Support**:
+  Ensure stability for massive data under high-concurrency access, meeting the system's fast response requirements.
+
+**Taobao, Tmall, and Pinduoduo Product APIs**:
+The product APIs of Taobao, Tmall, and Pinduoduo provide access to product data from these platforms, including information on prices, inventory, promotions, reviews, and more. These APIs feature strong real-time capabilities, extensive coverage, and support for quick access to massive product information.
+This API supports the following functionalities in the system:
+
+- **Price Comparison Support**:
+  Retrieve fitness equipment prices across different e-commerce platforms, helping users select the most cost-effective products.
+- **Product Information Retrieval**:
+  Provide product descriptions, reviews, and promotional information to enhance users' purchasing experience.
+- **E-commerce Redirection**:
+  Allow users to directly jump to corresponding e-commerce platforms to complete the purchase loop after selecting desired products.
+- **Recommendation Functionality**:
+  Recommend related products based on users' search behavior, enhancing the system's personalized service capabilities.
+
+**Example:Alibaba Cloud Large Model Service API Interface Specification**
+
+Aliyun's Large Model Service enables developers to leverage advanced natural language processing and visual understanding capabilities through API calls. This document provides specific methods for invoking Aliyun's Large Model Service, including request formats, response formats, and exception handling.
+
+**Request Format:**
+
+Requests should follow the HTTP POST protocol and include necessary header information and request body.
+
+**Request URL:**
+
+```json
+https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation
+```
+
+**Request Headers**
+
+- `Authorization`: Required, format is `Bearer <api_key>`
+- `Content-Type`: Required, value is `application/json`.
+
+**Request Body** The request body is in JSON format and mainly includes the model name and a list of messages. Each message in the message list can contain text or multimedia data (such as image URLs, video URLs).
+
++ **Example Request**
+
+```json
+{
+  "model": "qwen-vl-max-latest",
+  "input": {
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "video",
+            "video": [
+              "example1.jpg",
+              "example2.jpg",
+              "example3.jpg",
+              "example4.jpg"
+            ]
+          },
+          {
+            "type": "text",
+            "text": "Describe the specific fitness action shown in this video."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Response Format**
+
+A successful response will return data in JSON format, containing the generated content, token usage, etc.
+
++ **Example Response**
+
+```json
+{
+  "output": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "text": "This video shows a moment from a football match. The video is shot from behind the goal, showing players running and playing on the field. The specific process is as follows:..."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "usage": {
+    "output_tokens": 151,
+    "input_tokens": 1465,
+    "total_tokens": 1616
+  },
+  "request_id": "c728d1e0-79ad-9076-8589-7f072e96bccf"
+}
+```
+
+**Exception Handling**
+
+When a request fails, the API returns an error code and error message to help developers identify the issue.
+
++ **Example Exception Response**
+
+```json
+{
+  "status_code": 400,
+  "code": "InvalidParameter",
+  "message": "The provided parameter is invalid.",
+  "request_id": "7574ee8f-38a3-4b1e-9280-11c33ab46e51"
+}
+```
+
+**Details**
+
+- `model`: The name of the large model being used.
+- `messages`: A list of messages sent by the user, each message can be text or multimedia data.
+- `role`: The role of the message, usually `user` or `assistant`.
+- `type`: The type of content, such as `text`, `image_url`, or `video`.
+- `content`: The specific content of the message, for text type it is a string, for multimedia type it is a URL.
+
+**Supported Image Formats**
+
+- **BMP**: `image/bmp` (.bmp, .dib)
+- **DIB**: `image/bmp` (.dib)
+- **ICNS**: `image/icns` (.icns)
+- **ICO**: `image/x-icon` (.ico)
+- **JPEG**: `image/jpeg` (.jfif, .jpe, .jpeg, .jpg)
+- **JPEG2000**: `image/jp2` (.j2c, .j2k, .jp2, .jpc, .jpf, .jpx)
+- **PNG**: `image/png` (.apng, .png)
+- **SGI**: `image/sgi` (.bw, .rgb, .rgba, .sgi)
+- **TIFF**: `image/tiff` (.tif, .tiff)
+- **WEBP**: `image/webp` (.webp)
+
+**Supported Models**
+
+| Model Name          | Description                                                  |
+| ------------------- | ------------------------------------------------------------ |
+| qwen-vl-max         | A high-capacity model supporting a context length of 32k tokens, enhanced for image understanding, and better at recognizing multilingual text and handwritten text in images. |
+| qwen-vl-max-latest  | The latest version of the qwen-vl-max model, incorporating the most recent improvements and updates. |
+| qwen-vl-plus        | A versatile model designed for both text and image processing, suitable for a wide range of applications. |
+| qwen-vl-plus-latest | The latest version of the qwen-vl-plus model, featuring the most recent enhancements and optimizations. |
+
+## 2.4. Example
+
+The application of smart fitness platforms is not limited to a single network project or application. To better meet the diverse needs of users, we designed multiple subsystems, including the healthy diet subsystem. During the specific implementation process, we designed a series of API interface use cases for the healthy diet subsystem, so that users can easily interact with the system and obtain real-time dietary recommendations. The specific API design for the healthy eating system is shown below:
+
+### 2.4.1. Create Dietary Record
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryRecord/createDietaryRecord`
@@ -370,7 +616,7 @@ Dietary Plan Module
 }
 ```
 
-**Get Dietary Record**
+### 2.4.2. Get Dietary Record
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryRecord/getDietaryRecord`
@@ -435,7 +681,7 @@ Dietary Plan Module
 }
 ```
 
-**Get AI Analysis**
+### 2.4.3. Get AI Analysis
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryRecord/getAIanalysis`
@@ -482,7 +728,7 @@ Dietary Plan Module
 }
 ```
 
-**Get All plan**
+### 2.4.4. Get All plan
 
 - **Request Type**: GET
 - **REST API**: `/api/dietaryPlan/getAllPlan`
@@ -517,7 +763,7 @@ Dietary Plan Module
 }
 ```
 
-**Setup current plan**
+### 2.4.5. Setup current plan
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryPlan/setupCurrentPlan`
@@ -550,7 +796,7 @@ Dietary Plan Module
 }
 ```
 
-**Get today plan**
+### 2.4.6. Get today plan
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryPlan/getTodayPlan`
@@ -587,7 +833,7 @@ Dietary Plan Module
 }
 ```
 
-**Setup complete**
+### 2.4.7. Setup complete
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryPlan/setupComplete`
@@ -624,7 +870,7 @@ Dietary Plan Module
 }
 ```
 
-**Update plan**
+### 2.4.8. Update plan
 
 - **Request Type**: PUT
 - **REST API**: `/api/dietaryPlan/updatePlan`
@@ -690,7 +936,7 @@ Dietary Plan Module
 }
 ```
 
-**Audit plan**
+### 2.4.9. Audit plan
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryPlan/auditPlan`
@@ -722,3 +968,6 @@ Dietary Plan Module
 }
 ```
 
+# 3. Design Mechanism
+
+# 4. UseCase Realization
