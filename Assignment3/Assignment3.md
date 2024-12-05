@@ -1,4 +1,8 @@
+**Content**
+
 [TOC]
+
+<div style="page-break-before: always;"></div>
 
 # 1. Introducion
 
@@ -89,7 +93,9 @@ By combining user use cases with the system structure of the platform, we deeply
 
 Through these improvements and enhancements, this design document not only provides a more detailed and clear diagram of the system architecture, but also ensures that the platform can operate efficiently during the implementation process to meet the needs of future expansion and innovation.
 
-## 1.5. The Platform and Architecture
+# 2. The Platform and Architecture Styles
+
+## 2.1. Platform and Architecture
 
 In the actual development process, we will use a microservice architecture to develop our KeepFit intelligent fitness system. The architecture enables each microservice in the system to be deployed independently and loosely coupled to each other. Each microservice focuses on completing a single function and implementing it in an optimum way. This architecture design brings low coupling, high flexibility, specific solutions to specific problems, and is conducive to independent development. In addition, the microservice architecture also enhances the availability and stability of the system. Under this architecture, we will use a series of mature technologies and frameworks to build the system. The implementation of each subsystem and component is summarized as follows:
 
@@ -115,7 +121,7 @@ Backend development will be based on Spring Boot, using its strong scalability a
 
 Through the integrated application of these technologies and frameworks, we are able to build an efficient, stable and highly scalable microservice architecture system to meet the various needs of the KeepFit intelligent fitness platform.
 
-## 1.6. Architecture Style
+## 2.2. Architecture Style
 
 In the modern software architecture design, we abandon the traditional single architecture and instead adopt a more flexible and efficient microservice architecture. The core idea of this architecture style is to deconstruct complex systems into multiple lightweight, independent and autonomous service units, with each micro-service focused on performing specific business functions. With this decentralized design approach, we significantly improve the overall performance and resilience of the system. Unlike traditional single large applications, the micro-service architecture allows development teams to respond more quickly to changing business requirements, enabling rapid iteration of technology and business through loosely coupled service design. Each micro-service is a relatively independent business boundary, with its own data storage, business logic and communication interface, thus forming a highly decoupled and portfolio system ecosystem.
 
@@ -133,51 +139,53 @@ In designing the system, the overall architecture adopts a call / return style, 
 
 ![SimpleHierarchicalDiagram](.\assets\SimpleHierarchicalDiagram.png)
 
-## 1.7. Design Patterns
+# 3. Design Patterns and Decisions
+
+## 3.1. Design Patterns
 
 In the development process of the intelligent fitness platform, we follow the following design patterns:
 
-+ **Singleton Pattern**
+### 3.1.1. Singleton Pattern
 
 The singleton mode is a common design mode, designed to ensure that a class has only one instance, and that it provides a global access point to obtain that instance. By using the singleton mode, you can avoid resource waste and management problems caused by creating multiple instances, especially for data or services that require global sharing.
 
 In our smart fitness system, we use the singleton mode to manage the data of the current users. After the user logs in, the current user information is saved in a singleton class to ensure that this unique user data is shared by other modules in the application without repeating user objects. At the same time, the default Settings of the fitness plan or the global system configuration (such as the reward system, AI detection rules, etc.) can be managed in the singleton mode to ensure the consistency and global accessibility of the configuration items.
 
-![singleton](.\assets\singleton.png)
+<img src=".\assets\singleton.png" alt="singleton" width=400px />
 
-+ **Observer Pattern**
+### 3.1.2. Observer Pattern
 
 The observer pattern is a behavioral design pattern that defines a one-to-many dependency that allows multiple observers to listen on the state changes of a single subject object. When the state of a subject object changes, all observers who depend on it are notified and automatically updated.
 
 In our intelligent fitness system, the observer mode can be used for multiple scenarios, such as the user subscribing to their own target progress update, the fitness plan management module as the theme, and the user interface or the notification module as the observer, and the user can view the progress of the task in real time. When the user's fitness progress changes, multiple observers will receive notification and automatically update relevant content, such as reward distribution, data statistics, etc.
 
-![observer](.\assets\observer.png)
+<img src=".\assets\observer.png" alt="observer" width=400px />
 
-+ **Strategy Pattern**
+### 3.1.3. Strategy Pattern
 
 The strategy mode allows for the selection of the behavior of the algorithm at runtime. In strategy patterns, a series of algorithms is defined and each algorithm is encapsulated into a separate class so that they are interchangeable. The strategy mode makes the algorithm change independent of the customer using the algorithm.
 
 In our intelligent fitness system, different recommendation algorithm strategies are selected according to users' needs and preferences. For example, users prefer to learn through a video tutorial and can choose a content recommendation strategy. The recommendation system can flexibly switch between different recommendation algorithms through the strategy pattern to improve the user experience.
 
-![strategy](.\assets\strategy.png)
+<img src=".\assets\strategy.png" alt="strategy" width=400px />
 
-+ **Responsibility Chain Pattern**
+### 3.1.4. Responsibility Chain Pattern
 
 The responsibility chain mode is a behavioral design mode that forms a chain by connecting multiple processing objects in series to form a chain in which a client request passes along the chain until an object processes the request. The main purpose of this pattern is to give multiple objects the opportunity to process the request, thus avoiding the coupling between the request sender and the receiver.
 
 In the intelligent fitness system, the responsibility chain mode can be used to process a series of fitness tasks, user operation requests, data processing processes, etc. Especially when a request or operation needs to go through multiple processing steps, such as the training task audit process, the user feedback processing process, and the user training plan update process.
 
-![chain-of-responsibility](.\assets\chain-of-responsibility.png)
+<img src=".\assets\chain-of-responsibility.png" alt="chain-of-responsibility" width=400px />
 
-+ **Proxy Pattern**
+### 3.1.5. Proxy Pattern
 
 The proxy mode provides a proxy for other objects to control the access to that object. The agent mode accesses the real objects indirectly by introducing the agent objects. The agent objects can perform some additional operations before and after accessing the real objects, such as permission control, delayed loading, caching, etc.
 
 In smart fitness systems, video tutorials may require permission control. Only users who have purchased or unlocked the relevant tutorial can access the video content. Using proxy mode, proxy objects can control access to video tutorials, ensuring that only authorized users can watch it. At the same time, the proxy object can create an AI object on the first request and call the object directly in later requests, rather than creating every time, thus improving performance.
 
-![proxy](.\assets\proxy.png)
+<img src=".\assets\proxy.png" alt="proxy" width=400px />
 
-## 1.8. Critical Design Decisions
+## 3.2. Critical Design Decisions
 
 + In our system, all images and video resources uploaded by users are stored in Alibaba Cloud OSS and returned to the front-end for display through generated URLs. This approach not only provides high reliability and availability, ensuring secure and stable access to data, but also supports high concurrency processing and low latency, enhancing the user experience.
 + The microservice architecture we use is extremely flexible, can adapt well to the agile development process, and has advantages beyond traditional architectures in terms of system reconstruction and continuous integration. In addition, the deployment and expansion of the micro-service architecture enable us to make full use of the advantages of the cloud platform in the operation and maintenance process, effectively control costs and improve the maintainability of the system.
@@ -185,9 +193,9 @@ In smart fitness systems, video tutorials may require permission control. Only u
 + Using ElPlus and Vue to build our UI: Vue as a popular front-end framework provides an efficient development experience and a flexible component structure that can quickly respond to user needs. The introduction of ElPlus further improves the standardization and consistency of UI design, making the front-end interface more modern and user-friendly, thus bringing a smoother user experience.
 + Based on the concept of object-oriented programming, combined with the domain-specific technology stack: our projects mainly use the Springboot technology stack for development and process most of the business logic. However, in some specific services, thanks to the flexibility of the micro-service architecture, we adopt a dedicated technology stack in the corresponding field to improve the development efficiency and system performance.
 
-# 2. Architecture Refinement
+# 4. Architecture Refinement
 
-## 2.1. Platform-dependent Architecture
+## 4.1. Platform-dependent Architecture
 
 In the previous logical architecture design of our Keep Fit Platform, we focused heavily on the completeness of internal system functions and the security of data transmission. However, considering the increasing number of users and business complexity, the original layered architecture has gradually exposed some problems, such as poor system scalability, low development and deployment efficiency, and wide impact of failures. Therefore, we have decided to adopt a microservices architecture based on Domain Driven Design (DDD) to improve and upgrade the system logic architecture.
 
@@ -235,7 +243,11 @@ Combining the technical architecture and the microservice architecture, we ensur
 
 ![DataAndtechnicalserviceModel](.\assets\DataAndtechnicalserviceModel.png)
 
-## 2.2. Subsystems and Interfaces
+The following shows the deployment diagram of the Keep Fit platform: It presents a multi - layer architecture. The top layer is the user access layer, including PCs and mobile phones, which communicate with the intermediate - layer Web Server through the HTTP protocol. The Web Server contains content generated by WebUI. The Web Server is then connected to the Application Server through the HTTP protocol. The Application Server is designed with multiple artifacts based on the division of microservices, namely user - management.jar, ai - fitness - coach.jar, fitness - tutorials.jar, and healthy - diet.jar. These artifacts are responsible for user management, AI fitness coaching, fitness tutorials, and healthy diet functions respectively. The Application Server conducts persistent data storage through JDBC with the Oracle Database. In addition, there is the Bailian LLM server for the understanding and analysis of texts, images, and videos, and the Aliyun OSS Server for cloud - based storage of images, videos, and other data. There are also two modules, Fitness tutorial and Food record, which interact with these servers.
+
+![Deployment](.\assets\Deployment.png)
+
+## 4.2. Subsystems and Interfaces
 
 According to the principle of domain-driven design, to ensure that the business logic of the system is implemented efficiently and accurately, we divide the individual business functions in the system into five main areas. This division not only helps to clarify the scope of responsibility in each field, but also ensures that the degree of coupling between services in each field is minimized, thus optimizing the overall structure and maintainability of the system.
 
@@ -255,7 +267,7 @@ Based on the above domain design, in order to meet the demand for moderately gra
   + Dietary Record Module
   + Dietary Plan Module
 
-### 2.2.1. Login and Registration Subsystem
+### 4.2.1. Login and Registration Subsystem
 
 | API Interface               | Method | Parameters         | Description                                                  |
 | --------------------------- | ------ | ------------------ | ------------------------------------------------------------ |
@@ -272,7 +284,7 @@ Based on the above domain design, in order to meet the demand for moderately gra
 | /api/ua/token/refresh       | POST   | token              | Refresh token.                                               |
 | /api/ua/token/check         | POST   | token              | Check if the token is valid.                                 |
 
-### 2.2.2. Fitness Tutorial Subsystem
+### 4.2.2. Fitness Tutorial Subsystem
 
 | API Interface                               | Method | Parameters                      | Description                                                  |
 | ------------------------------------------- | ------ | ------------------------------- | ------------------------------------------------------------ |
@@ -293,7 +305,7 @@ Based on the above domain design, in order to meet the demand for moderately gra
 | /api/tutorial/releaseComment                | POST   | token, tutorialId, comment      | The user evaluates the specified tutorial through this interface. |
 | /api/tutorial/commentApprove                | PUT    | token, tutorialId, comment      | The administrator reviews the user's tutorial evaluation through this interface, and the approved evaluation will be displayed on the tutorial page. |
 
-### 2.2.3. Fitness Action Coaching SubSystem
+### 4.2.3. Fitness Action Coaching SubSystem
 
 | API INTERFACE                   | METHOD | PARAMETERS                         | **INTERFACE INTRODUCTION**                                   |
 | ------------------------------- | ------ | ---------------------------------- | ------------------------------------------------------------ |
@@ -304,7 +316,7 @@ Based on the above domain design, in order to meet the demand for moderately gra
 | /api/AICoaching/AIanalysis      | POST   | token, videoUrl, actionName        | Call the Qwen VL large model for analysis, return action analysis and corrective suggestions. |
 | /api/AICoaching/planCheckIn     | POST   | token, actionName, imgUrl/videoUrl | The AI analysis interface reviews whether the user's fitness plan check-in content meets the standards and returns a check-in success or failure status. |
 
-### 2.2.4. Fitness Equipment SubSystem
+### 4.2.4. Fitness Equipment SubSystem
 
 | API INTERFACE                        | METHOD | PARAMETERS                          | **INTERFACE INTRODUCTION**                                   |
 | ------------------------------------ | ------ | ----------------------------------- | ------------------------------------------------------------ |
@@ -316,7 +328,7 @@ Based on the above domain design, in order to meet the demand for moderately gra
 | /api/equipment/{equipmentID}/chat    | POST   | token, equipmentID, imgUrl, message | Provide intelligent answers for VIP users to help them further understand equipment usage methods |
 | /api/equipment/{equipmentID}/accept  | POST   | token, equipmentID, responseID      | Users can directly insert intelligent answers as comments into equipment evaluations. |
 
-### 2.2.5. Healthy Diet Subsystem
+### 4.2.5. Healthy Diet Subsystem
 
 + **Dietary Record Module**
 
@@ -345,11 +357,11 @@ Based on the above domain design, in order to meet the demand for moderately gra
 | api/dietaryPlan/aduitPlan     | POST   | token, aduitResult, planID(Approval or rejection status) | Audit the dietary plan and return the audit results.         |
 | api/dietaryPlan/getTodayPlan  | POST   | token                                                    | Get the details of today's corresponding plan in the user's current execution plan. |
 
-## 2.3. Interface Specification
+## 4.3. Interface Specification
 
 Since the intelligent fitness system platform involves different roles and authority management, in order to ensure the privacy security of data and the efficiency of information transmission in the process of system operation, the project needs to include a special security service module, responsible for user login authentication and authority control. Considering that the front and back end architecture of the system is separated, and there are a series of requirements, such as authentication and security access, we chose sa-token as the security framework. The sa-token isa lightweight and powerful framework capable of providing efficient, flexible authentication and licensing capabilities. By using sa-token, we can effectively manage the permissions of different user roles, ensure the data security of the system, while ensuring the fluency of user operation and the efficiency of the authentication process, so as to support the stable operation and rapid iteration of the system.
 
-### 2.3.1. Internal Interface Description
+### 4.3.1. Internal Interface Description
 
 + **Login Authentication**
 
@@ -367,7 +379,7 @@ By leveraging the sa-token framework, our project can ensure that all operations
 | `/api/ua/token/refresh`  | POST   | `token`                | Refresh token                                                |
 | `/api/ua/token/check`    | POST   | `token`                | Check if the token is valid                                  |
 
-### 2.3.2. External Interface Description
+### 4.3.2. External Interface Description
 
 To enhance development efficiency and reduce costs, we have selected a range of third-party APIs to provide users with intelligent, personalized, and convenient functionality and services.
 
@@ -559,11 +571,15 @@ When a request fails, the API returns an error code and error message to help de
 | qwen-vl-plus        | A versatile model designed for both text and image processing, suitable for a wide range of applications. |
 | qwen-vl-plus-latest | The latest version of the qwen-vl-plus model, featuring the most recent enhancements and optimizations. |
 
-## 2.4. Example
+## 4.4. Example
 
-The application of smart fitness platforms is not limited to a single network project or application. To better meet the diverse needs of users, we designed multiple subsystems, including the healthy diet subsystem. During the specific implementation process, we designed a series of API interface use cases for the healthy diet subsystem, so that users can easily interact with the system and obtain real-time dietary recommendations. The specific API design for the healthy eating system is shown below:
+The applications of the Smart Fitness Platform are not limited to a single web-based program or application. In order to better meet the diverse needs of users, we have designed multiple subsystems including the healthy diet subsystem. In the specific implementation process, we designed a series of API interface use cases for the healthy diet subsystem to facilitate users to interact with the system and obtain real-time dietary advice. In the process of further design, we first further improved the classes of the diet system.
 
-### 2.4.1. Create Dietary Record
+![DietClassDiagram](.\assets\DietClassDiagram.png)
+
+The specific application program interface design for the healthy diet system is shown below:
+
+### 4.4.1. Create Dietary Record
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryRecord/createDietaryRecord`
@@ -616,7 +632,7 @@ The application of smart fitness platforms is not limited to a single network pr
 }
 ```
 
-### 2.4.2. Get Dietary Record
+### 4.4.2. Get Dietary Record
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryRecord/getDietaryRecord`
@@ -681,7 +697,7 @@ The application of smart fitness platforms is not limited to a single network pr
 }
 ```
 
-### 2.4.3. Get AI Analysis
+### 4.4.3. Get AI Analysis
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryRecord/getAIanalysis`
@@ -728,7 +744,7 @@ The application of smart fitness platforms is not limited to a single network pr
 }
 ```
 
-### 2.4.4. Get All plan
+### 4.4.4. Get All plan
 
 - **Request Type**: GET
 - **REST API**: `/api/dietaryPlan/getAllPlan`
@@ -763,7 +779,7 @@ The application of smart fitness platforms is not limited to a single network pr
 }
 ```
 
-### 2.4.5. Setup current plan
+### 4.4.5. Setup current plan
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryPlan/setupCurrentPlan`
@@ -796,7 +812,7 @@ The application of smart fitness platforms is not limited to a single network pr
 }
 ```
 
-### 2.4.6. Get today plan
+### 4.4.6. Get today plan
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryPlan/getTodayPlan`
@@ -833,7 +849,7 @@ The application of smart fitness platforms is not limited to a single network pr
 }
 ```
 
-### 2.4.7. Setup complete
+### 4.4.7. Setup complete
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryPlan/setupComplete`
@@ -870,7 +886,7 @@ The application of smart fitness platforms is not limited to a single network pr
 }
 ```
 
-### 2.4.8. Update plan
+### 4.4.8. Update plan
 
 - **Request Type**: PUT
 - **REST API**: `/api/dietaryPlan/updatePlan`
@@ -936,7 +952,7 @@ The application of smart fitness platforms is not limited to a single network pr
 }
 ```
 
-### 2.4.9. Audit plan
+### 4.4.9. Audit plan
 
 - **Request Type**: POST
 - **REST API**: `/api/dietaryPlan/auditPlan`
@@ -968,25 +984,25 @@ The application of smart fitness platforms is not limited to a single network pr
 }
 ```
 
-# 3. Design Mechanism
+# 5. Design Mechanism
 
-## 3.1. Data Persistence Mechanism
+## 5.1. Data Persistence Mechanism
 
 In our Keep Fit Platform, data persistence is a core component to ensure the efficient operation of the system. With the expansion of platform features and the growth of user demand, we need to perform data persistence operations across various modules, including but not limited to: diet plans, execution statuses, diet records, and analysis results in the health diet system; fitness videos or images uploaded by users and their corresponding analysis results; users' fitness plans, execution statuses, and fitness preferences. Moreover, in order to support AI recommendation engines and intelligent analysis, we also need to store personalized fitness data, health history, and progress trends.
 
-### 3.1.1. Data Persistence Requirements
+### 5.1.1. Data Persistence Requirements
 
 The data in our platform is diverse, including both static data (e.g., personal information, diet plans) and dynamic data (e.g., fitness videos, execution statuses, analysis results). To efficiently and securely store this data, choosing an appropriate persistence solution is crucial.
 
 Given the system's needs, a relational database is the most suitable choice, as it can flexibly store this structured and related data. To ensure the platform can interact efficiently with the database, we have chosen to use the Hibernate framework for data persistence management.
 
-### 3.1.2. Persistence Architecture and ORM Technology
+### 5.1.2. Persistence Architecture and ORM Technology
 
 In our platform architecture, Java objects typically reside in memory, and these objects need to interact with data stored in the relational database at different points in time. Thus, we employ Object-Relational Mapping (ORM) technology through the Hibernate framework to establish a mapping between Java objects in memory and data tables in the relational database.
 
 The core advantage of the Hibernate framework is that it simplifies database operations and significantly reduces code redundancy. It can automatically generate SQL statements, handle database transactions, and integrate closely with JDBC to ensure support for most relational databases. For our smart fitness platform, Hibernate easily implements bidirectional mapping between objects and database tables.
 
-### 3.1.3. Persistence Layer Design
+### 5.1.3. Persistence Layer Design
 
 In the design of our platform, we have created a persistence layer that sits between the business layer and the database, acting as an intermediary. This layer is responsible for data persistence operations, providing interfaces through which the business layer can easily interact with the database for data retrieval, updates, and deletions.
 
@@ -1000,7 +1016,7 @@ In the design of our platform, we have created a persistence layer that sits bet
 4. **Transaction Object**: Transaction management is crucial for interacting with databases. The `Transaction` object in Hibernate ensures atomicity and consistency of operations. For example, when updating a user's fitness record, it is essential to synchronize data across multiple related tables. The `Transaction` object provides methods for beginning, committing, and rolling back transactions.
 5. **Query Object and Criteria Object**: To retrieve data from the database, Hibernate provides the `Query` object and `Criteria` object. The `Query` object allows data retrieval using either native SQL statements or Hibernate Query Language (HQL). The `Criteria` object offers a more object-oriented approach to querying, enabling dynamic construction of SQL statements based on query conditions. In our fitness platform, retrieving AI analysis results and fitness preferences typically relies on these query tools to perform flexible queries.
 
-### 3.1.4. Examples of Data Persistence Scenarios
+### 5.1.4. Examples of Data Persistence Scenarios
 
 1. **Diet Plans and Records**: Each user's diet plan, execution status, diet records, and analysis results need to be persistently stored. With Hibernate, we map these details to Java objects and store them in the corresponding database tables. When users update their diet records, the system automatically synchronizes the data with the database, ensuring that the user’s data is up-to-date.
 2. **Fitness Videos and Analysis Results**: The fitness videos or images uploaded by users, along with their analysis results, are typically large files stored in the file system. However, related metadata (such as filenames, user IDs, upload time) is persistently stored in the database using Hibernate.
@@ -1008,13 +1024,15 @@ In the design of our platform, we have created a persistence layer that sits bet
 
 In the Keep Fit Platform, data persistence involves not only storing basic user information and fitness records but also handling complex data models such as diet plans, video analysis results, and AI recommendation information. By adopting the Hibernate framework, we can efficiently map between objects and relational database tables, simplifying the implementation of the data access layer and improving the system's maintainability and scalability. The decoupling of the persistence layer from the business layer allows the system to be more flexible and extensible, providing users with a more personalized and intelligent fitness management experience.
 
-## 3.2. Distribution Mechanism  
+## 5.2. Distribution Mechanism  
 
 As we choose to use **Microservices-based Architecture** during our project design and implementation, it is natural for us to consider distributing our microservices to make our service more scalable, resilient,  and able to handle a large volume of users and transactions. And we hope to do so by utilizing a matured, automated framework that can significantly reduce the development and maintenance complexity. 
 
 In our system, we have adopted **Spring Cloud** to construct a robust, scalable, and fault-tolerant distributed architecture. **Spring Cloud** provides a comprehensive suite of tools and frameworks designed to tackle the common challenges faced when developing microservices, such as service discovery, load balancing, configuration management, and fault tolerance. These tools help to ensure that our system can scale efficiently, remain highly available, and maintain smooth communication across a large number of distributed services.
 
-### 3.2.1. Microservices Architecture
+![cloud-3](.\assets\cloud-3.svg)
+
+### 5.2.1. Microservices Architecture
 
 As mentioned before, to enhance the system's modularity, maintainability, and resilience, we have implemented a **Microservices-based Architecture**. The entire platform is divided into a set of small, independently deployable services, each responsible for a specific functionality within the system. For example, we have distinct services for user management, order processing, inventory management, and notifications, allowing each service to evolve independently while still working together seamlessly.
 
@@ -1024,7 +1042,7 @@ In this architecture, **Spring Cloud Netflix Eureka** is used to manage service 
 
 Furthermore, **Spring Cloud Gateway** is employed as the single entry point for all external requests. It handles routing, load balancing, and API management. The gateway uses predefined routes to direct traffic to the appropriate microservices. This pattern improves the overall system’s security and performance, as traffic is centralized and can be controlled more efficiently.
 
-### 3.2.2. Service Management and Fault Tolerance
+### 5.2.2. Service Management and Fault Tolerance
 
 In a distributed system, service failures are inevitable, so ensuring resilience is a key consideration in our implementation. We use **Spring Cloud Circuit Breaker**, specifically **Hystrix** (or **Resilience4J** as a more modern alternative), to implement fault tolerance in our services. This allows us to define fallback methods for critical service calls, preventing cascading failures when one service becomes unavailable.
 
@@ -1032,7 +1050,7 @@ For example, when a microservice fails, Hystrix will "trip" the circuit breaker 
 
 We also utilize **Spring Cloud Config** for centralized configuration management. Instead of hard-coding configuration settings in individual services, we store them in a centralized repository (such as Git), which can be dynamically loaded by the services at runtime. This centralization simplifies the management of application settings across multiple environments (development, staging, production) and makes it easier to update configurations without redeploying the services. **Spring Cloud Bus** is used to propagate configuration changes across the entire system in real-time, ensuring that all services receive the latest configuration updates immediately.
 
-### 3.2.3. Load Balancing and High Availability
+### 5.2.3. Load Balancing and High Availability
 
 **Spring Cloud Netflix Ribbon** provides client-side load balancing, ensuring that requests are evenly distributed across available service instances. Ribbon works alongside **Eureka** to automatically retrieve the list of available service instances and balance the load among them. This reduces the risk of overloading any single instance and ensures a more efficient use of resources.
 
@@ -1040,29 +1058,32 @@ For example, when a user requests data from a particular service, Ribbon will se
 
 In addition, **Spring Cloud Sleuth** provides distributed tracing, allowing us to trace requests as they flow across different microservices. This is crucial for debugging and monitoring the performance of the system, especially in complex distributed systems where requests may pass through multiple services before reaching their final destination. By integrating **Zipkin** or **ELK Stack (Elasticsearch, Logstash, Kibana)** with Sleuth, we can visualize the flow of requests, identify bottlenecks, and ensure that the system is operating efficiently.
 
-### 3.2.4. Scalability and Auto-Scaling
+### 5.2.4. Scalability and Auto-Scaling
 
 The microservices architecture allows for flexible and elastic scaling. Each microservice can be scaled independently, which helps to accommodate increasing traffic without affecting other parts of the system. We use **Kubernetes** (or other container orchestration platforms) to manage the deployment and scaling of microservices. With Kubernetes, we can automatically scale the number of replicas for a given microservice based on CPU utilization, memory usage, or custom metrics.
 
 For example, if the order service experiences a high volume of requests, Kubernetes can automatically spin up additional instances to handle the load, ensuring that the service remains responsive. Once the load decreases, the extra instances are terminated to save resources. This dynamic scaling is vital in a cloud-native environment, where workloads can fluctuate frequently, and the system must be able to respond quickly to changes in demand.
 
-### 3.2.5. Monitoring and Logging
+### 5.2.5. Monitoring and Logging
 
 To ensure the health of our system, we integrate **Spring Boot Actuator** to expose operational metrics and health checks, such as system performance, database connection status, and memory usage. These metrics are collected and monitored using **Prometheus** and **Grafana**, providing real-time insights into the system's health.
 
 For logging, we use **ELK Stack (Elasticsearch, Logstash, Kibana)** or **Splunk** to collect and analyze logs from all microservices. By centralizing logs, we can quickly identify and troubleshoot issues in the system. The logs are also essential for debugging, especially when tracing requests across distributed services.
 
-### 3.2.6. Conclusion
+### 5.2.6. Conclusion
 
 Through the adoption of **Spring Cloud**, we have successfully built a microservices architecture that is flexible, resilient, and capable of handling the complex demands of our platform. With features such as dynamic service discovery, centralized configuration, fault tolerance, and scalable deployment, we ensure that our system is both robust and easy to maintain. Furthermore, by integrating monitoring, logging, and auto-scaling capabilities, we guarantee that our system remains highly available and responsive even under heavy load. This architecture allows us to continuously improve and scale our services while maintaining high performance and reliability.
 
-# 4. UseCase Realization
+# 6. UseCase Realization
 
-## 4.1. Search and Browse Tutorials
+## 6.1. Search and Browse Tutorials
 
 The class diagram for searching and browsing the tutorial use case is shown below:
 
-![TutorialClassDiagram](.\assets\TutorialClassDiagram.png)
+<div style="text-align: center;">
+  <img src=".\assets\TutorialClassDiagram.png" alt="TutorialClassDiagram" width="500px" />
+</div>
+
 The interaction diagram for the search and browse tutorial use cases is shown below:
 
 ![SearchBrowseTutorials](.\assets\SearchBrowseTutorials.png)
@@ -1216,7 +1237,7 @@ public ResponseEntity<List<Tutorial>> tutorialSearch(@RequestParam String query)
 
 The above code illustrates the process from front-end to back-end in searching tutorials and viewing tutorial details. The front end uses Vue.js to interact with the backend, which is built using Spring MVC. The data is transmitted between the front end and backend using REST APIs, and error handling is implemented to provide feedback to users.
 
-## 4.2. AI analyzes dietary records
+## 6.2. AI analyzes dietary records
 
 In our system, we use AJAX for asynchronous communication between the frontend and backend. Spring MVC is responsible for handling backend requests, business logic, data validation, and generating response data. Additionally, we use Alibaba Cloud's large model API to implement the AI analysis functionality.
 
@@ -1325,7 +1346,7 @@ The corresponding pseudo-code is as follows:
         this.analysisResult = response.data.analysisResult;
       } catch (error) {
         console.error("Failed to analyze record:", error);
-      }0
+      }
     }
   ```
 
@@ -1340,11 +1361,10 @@ The corresponding pseudo-code is as follows:
       String analysisResult = analysisService.analyze(recordContent);
       return ResponseEntity.ok(new Analysis(analysisResult));
   }
-  
   ```
-
+  
   - Service Layer
-
+  
   ```java
   public String getRecordContent(String recordId) {
       Record record = recordRepository.findById(recordId).orElseThrow(() -> new RuntimeException("Record not found"));
@@ -1383,7 +1403,7 @@ The corresponding pseudo-code is as follows:
       }
   }
   ```
-
+  
 - The front-end saves the results of the analysis
 
   ```javascript
@@ -1430,9 +1450,193 @@ The corresponding pseudo-code is as follows:
     ```
 
 
-# 5. Progress on Phototyping
+# 7. Progress on Prototyping
 
-## 5.1. Front-end Phototyping
+## 7.1. Front-end Prototyping
 
-## 5.2. Back-end Phototyping
+In this project, we use VUE3 framework to develop the front-end so as to do the web design of `Keep Fit`. At the same time, we still use `npm` as the front-end project package management tool, and use `Vite` as the front-end build tool for rapid development and build.
 
+The dependency graph is as follows:
+
+<img src=".\assets\FrontEndDependency.png" alt="FrontEndDependency" width=300px />
+
+The way to run the front end:
+
+We type the `npm run dev` command in the terminal, and we can access our page on port 5137 on localhost.
+
+<img src=".\assets\NpmRun.png" alt="NpmRun" width=300px />
+
+Taking the login page as an example, our front-end code is as follows:
+
+![FrontEndCode](.\assets\FrontEndCode.png)
+
+Our login page was designed based on a snapshot of the system, adding the administrator login method, and our project's logo. The page is shown in the figure:
+
+<img src=".\assets\LoginUI.png" alt="LoginUI" width=600px />
+
+## 7.2. Back-end Prototyping
+
+For the back-end of our system, we use Java and the Spring Boot framework for development. At this prototyping stage, we choose to ignore the distribution problem related to Spring Cloud first and focus on the implementation of the functionality of each microservice. We use REST API to communicate between the front-end and the back-end. In the rest of this section, we will demonstrate our progress on the back-end prototyping with a focus on the user authentication microservice responsible for the user login, sign-up, and so on. Be aware that we are not going to cover every detail of this prototyping, rather than giving a sense of how it is implemented. 
+
+We begin our work by creating a Spring Boot microservice called `auth`:
+
+![Spring](.\assets\Spring.png)
+
+which is structured as follows:
+
+<img src=".\assets\BackEnd.png" alt="BackEnd" width=150px />
+
+Then we start to add our implementation. Take the function `login` as an example, we create a class called `LoginController`, and add our APIs like `/api/ua/login/passwd` or `/api/ua/logOut`:
+
+``` java
+@RestController
+public class LoginController {
+
+	@Autowired
+	private TokenStore tokenStore;
+
+	@Autowired
+	private AuthAccountService authAccountService;
+
+	@Autowired
+	private PermissionFeignClient permissionFeignClient;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@PostMapping("/api/ua/login/passwd")
+	public ServerResponseEntity<TokenInfoVO> login(
+			@Valid @RequestBody AuthenticationDTO authenticationDTO) {
+
+		ServerResponseEntity<UserInfoInTokenBO> userInfoInTokenResponse = authAccountService.getUserInfoInTokenByInputUserNameAndPassword(authenticationDTO.getPrincipal(),authenticationDTO.getCredentials(), authenticationDTO.getSysType());
+
+		if (!userInfoInTokenResponse.isSuccess()) {
+			return ServerResponseEntity.transform(userInfoInTokenResponse);
+		}
+
+		UserInfoInTokenBO data = userInfoInTokenResponse.getData();
+
+		ClearUserPermissionsCacheDTO clearUserPermissionsCacheDTO = new ClearUserPermissionsCacheDTO();
+		clearUserPermissionsCacheDTO.setSysType(data.getSysType());
+		clearUserPermissionsCacheDTO.setUserId(data.getUserId());
+
+		ServerResponseEntity<Void> clearResponseEntity = permissionFeignClient.clearUserPermissionsCache(clearUserPermissionsCacheDTO);
+
+		if (!clearResponseEntity.isSuccess()) {
+			return ServerResponseEntity.fail(ResponseEnum.UNAUTHORIZED);
+		}
+
+		return ServerResponseEntity.success(tokenStore.storeAndGetVo(data));
+	}
+
+	@PostMapping("/loginOut")
+	public ServerResponseEntity<TokenInfoVO> loginOut() {
+		UserInfoInTokenBO userInfoInToken = AuthUserContext.get();
+		ClearUserPermissionsCacheDTO clearUserPermissionsCacheDTO = new ClearUserPermissionsCacheDTO();
+		clearUserPermissionsCacheDTO.setSysType(userInfoInToken.getSysType());
+		clearUserPermissionsCacheDTO.setUserId(userInfoInToken.getUserId());
+
+		permissionFeignClient.clearUserPermissionsCache(clearUserPermissionsCacheDTO);
+
+		tokenStore.deleteAllToken(userInfoInToken.getSysType().toString(), userInfoInToken.getUid());
+		return ServerResponseEntity.success();
+	}
+}
+```
+
+So now, we can call the APIs in tools like ***Postman*** for testing.
+
+<img src=".\assets\PostMan1.png" alt="PostMan1" width=600px />
+
+<img src=".\assets\PostMan2.png" alt="PostMan2" width=600px />
+
+# 8. Open Issues
+
+## 8.1. Data consistency and transaction management
+
++ **Problem Description**
+
+How to ensure data consistency and transaction management during data operations between multiple microservices? For example, when a user is recharged, and multiple microservices (such as payment services, user services, and reward systems) are involved, how to ensure data consistency?
+
++ **Challenge**
+
+Distributed transactions (such as using Saga mode) or event-driven architecture need to be considered to ensure data consistency between microservices.
+
+## 8.2. Optimization of the dynamic recommendation algorithm
+
++ **Problem Description**
+
+Can the recommendation system in the platform (such as fitness tutorial recommendation, diet plan recommendation, etc.) automatically adjust the recommendation strategy according to users' real-time behavior and feedback? Is the current design flexible enough to handle complex transactions?
+
++ **Challenge**
+
+We need to consider how to introduce more machine learning algorithms (such as deep learning, collaborative filtering, etc.) to optimize the recommendation algorithms, and to ensure that the recommendation system can update the recommendation content in real time and accurately according to user behavior.
+
+## 8.3. Integration and security of payment systems
+
++ **Problem Description**
+
+Is the payment system designed to meet the modern payment security standards? For example, the platform integrates third-party payment interfaces (such as Alipay, WeChat payment, etc.), how to ensure the security of transactions and prevent the disclosure or tampering of payment information?
+
++ **Challenge**
+
+Further evaluation of the security strategy of the payment system is needed to ensure that all payment processes are encrypted and meet security standards such as PCI-DSS.
+
+## 8.4. User behavior analysis and data privacy
+
++ **Problem Description**
+
+How can user behavior data (such as fitness records, eating habits, etc.) be used for data analysis and personalized recommendation on the platform? How to ensure that users' data privacy is guaranteed and avoid data abuse?
+
++ **Challenge**
+
+GDPR (Privacy protection regulations) in data collection, analysis and storage, and provide users with data privacy control options.
+
+## 8.5. Platform performance with high concurrent processing
+
++ **Problem Description**
+
+As the number of users increases, how can you ensure that the platform maintains high performance despite high concurrency, especially the response time of user query tutorials, submit comments, punch in, and so on?
+
++ **Challenge**
+
+The performance of database query and API calls needs to be further optimized, using caching and load balancing techniques to ensure that the system can handle a large number of concurrent requests.
+
+# 9. Project self-reflection
+
++ **WeiCheng  Zheng**
+
+After a semester of study, I deeply realized the importance of the pre-design process of the project. From the initial idea to the release and operation and maintenance of the final product, every link is indispensable. At first, I had no concept of project modeling, but now I am able to skillfully draw case maps, class maps and other models. I have a macro global understanding of project development and understand the specific implementation steps. 
+
+System analysis and design are not fought alone, but the crystallization of teamwork. Thanks to my teammates for their efforts and mutual support during this period, we learned new knowledge and solved problems together. We not only accumulated deep friendship, but also made me make significant progress in teamwork. We feel very honored to have the advice and guidance given by the teacher after the mid-term defense, which will be the wealth of our life.
+
++ **Juekai Lin**
+
+Through the study of system analysis and design, I deeply realize that software development does not write code at the beginning, but requires sufficient preliminary design and analysis. From user needs to UML modeling, prototype design, to function and API design, and finally to achieve the function, every step is closely related. Especially in the early stage, some designs have a profound impact on the subsequent development, which also makes the later development more clear and smooth. 
+
+It was a valuable experience to cooperate with our excellent teammates, and we were honored to get guidance from our teachers. The clear division of labor and smooth communication not only exercised my teamwork ability, but also gained me rich cooperation experience and example strength. I have benefited a lot from this experience.
+
++ **Lixin Ma**
+
+The system analysis and design course in this semester has put me through the whole process of the system from conception to implementation, and I have a clearer understanding of the development process. I learned to visually present the system use case with the use case diagram and the use case instruction manual, and to deeply analyze the functional details with the activity map and the order diagram. These design tools allow me to better understand the system design, and provide intuitive reference directions. 
+
+At the same time, I have a deeper understanding of the key mechanisms in the system design, which provides a clear guidance for the future project development. Now, I know how to standardize the development process, avoid common beginner mistakes, and no longer feel confused about the design of complex systems.
+
++ **Junhao Yang**
+
+System analysis and design is both a practical and impressive course. In the process of agile analysis and architecture design of the project, I learned the relevant knowledge of requirements analysis and architecture design. From how to determine the target users, to how to draw UML maps, and then to analyze the rationality of the system architecture, these contents gave me a more systematic understanding of software development. 
+
+Also, the cooperation with my teammates allowed me not only to accumulated teamwork experience precious in my future career, but also to gain new ideas from others. I feel lucky to have my skills in both engineering and teamwork improved, while gaining a deeper understanding of the overall process of software development along the way.
+
+# 10. Contributions
+
+During the implementation of the project, the team members actively participate in the discussion and put into the task according to their respective interests and expertise, to ensure that the work is completed on time under the premise of high quality. The atmosphere in the team is harmonious, smooth and efficient communication, which provides an important guarantee for the smooth progress of the project. Each member performed his own duties, and made outstanding contributions to the success of the project.
+
+|          Members           | Part 1 | Part 2 | Part 3 | Part 4 | Part 5 | Part 6 | Part 7 | Part 8 | Part9 | SCORE WEIGHT |
+| :------------------------: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :---: | :----------: |
+| 2154286 <br>Weicheng Zheng |   √    |   √    |        |   √    |        |   √    |   √    |   √    |   √   |     25%      |
+|  2253744 <br/>Juekai Lin   |   √    |        |   √    |   √    |   √    |   √    |        |   √    |   √   |     25%      |
+|   2153085<br/> Lixin Ma    |   √    |   √    |        |   √    |        |   √    |   √    |   √    |   √   |     25%      |
+|  2154284 <br/>Junhao Yang  |   √    |        |   √    |   √    |        |   √    |        |   √    |   √   |     25%      |
+
+Specifically, Weicheng Zheng is mainly responsible for the Fitness Action Coaching and Equipment SubSystem. Juekai Lin is mainly responsible for the Fitness Tutorial Subsystem. Lixin Ma is mainly responsible for the Healthy Diet Subsystem. Junhao Yang is mainly responsible for the Login and Registration Subsystem.
