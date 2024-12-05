@@ -241,17 +241,17 @@ According to the principle of domain-driven design, to ensure that the business 
 
 + **Login and Registration Subsystem**
 + **Fitness Tutorial Subsystem**
-+ **Fitness Action Coaching System**
-+ **Fitness Equipment System**
++ **Fitness Action Coaching SubSystem**
++ **Fitness Equipment SubSystem**
 + **Healthy Diet Subsystem**
 
 Based on the above domain design, in order to meet the demand for moderately granular services in the system design, we further divide the microservices into the following specific subsystems. This division is functionally oriented and aims to ensure that each subsystem can independently assume specific responsibilities, while maintaining low-coupling relationships with other subsystems.
 
 + **Login and Registration Service Subsystem**
-+ **Fitness Tutorial Subsystem**
-+ **Fitness Action Coaching System**
-+ **Fitness Equipment System**
-+ **Healthy Diet Subsystem**
++ **Fitness Tutorial Service Subsystem**
++ **Fitness Action Coaching Servrice SubSystem**
++ **Fitness Equipment Service SubSystem**
++ **Healthy Diet Service Subsystem**
   + Dietary Record Module
   + Dietary Plan Module
 
@@ -276,8 +276,8 @@ Based on the above domain design, in order to meet the demand for moderately gra
 
 | API Interface                               | Method | Parameters                      | Description                                                  |
 | ------------------------------------------- | ------ | ------------------------------- | ------------------------------------------------------------ |
-| /api/tutorial/tutorialSearch                | GET    | token, keyword                  | Through this interface, users find the relevant fitness tutorial through keyword search and return a list of matching tutorials. |
-| /api/tutorial/{tutorialID}/tutorialInfo     | GET    | token, tutorialId               | The interface uses the user to obtain the details of the specified fitness course, including the course name, introduction, duration, difficulty, etc. |
+| /api/tutorial/tutorialSearch                | GET    | keyword                         | Through this interface, users find the relevant fitness tutorial through keyword search and return a list of matching tutorials. |
+| /api/tutorial/{tutorialID}/tutorialInfo     | GET    | tutorialId                      | The interface uses the user to obtain the details of the specified fitness course, including the course name, introduction, duration, difficulty, etc. |
 | /api/tutorial/{tutorialID}/tutorialPurchase | POST   | token, tutorialId               | The user buys the specified unlocked tutorial through this interface to return whether the purchase is successful. |
 | /api/tutorial/{tutorialID}/tutorialPlay     | GET    | token                           | Users can watch the purchased or unlocked fitness tutorial videos through this interface. |
 | /api/tutorial/{tutorialID}/planGenerate     | POST   | token, tutorialId               | This interface can generate a personalized fitness plan and return the generated plan content. |
@@ -293,7 +293,7 @@ Based on the above domain design, in order to meet the demand for moderately gra
 | /api/tutorial/releaseComment                | POST   | token, tutorialId, comment      | The user evaluates the specified tutorial through this interface. |
 | /api/tutorial/commentApprove                | PUT    | token, tutorialId, comment      | The administrator reviews the user's tutorial evaluation through this interface, and the approved evaluation will be displayed on the tutorial page. |
 
-### 2.2.3. Fitness Action Coaching System
+### 2.2.3. Fitness Action Coaching SubSystem
 
 | API INTERFACE                   | METHOD | PARAMETERS                         | **INTERFACE INTRODUCTION**                                   |
 | ------------------------------- | ------ | ---------------------------------- | ------------------------------------------------------------ |
@@ -304,7 +304,7 @@ Based on the above domain design, in order to meet the demand for moderately gra
 | /api/AICoaching/AIanalysis      | POST   | token, videoUrl, actionName        | Call the Qwen VL large model for analysis, return action analysis and corrective suggestions. |
 | /api/AICoaching/planCheckIn     | POST   | token, actionName, imgUrl/videoUrl | The AI analysis interface reviews whether the user's fitness plan check-in content meets the standards and returns a check-in success or failure status. |
 
-### 2.2.4. Fitness Equipment System
+### 2.2.4. Fitness Equipment SubSystem
 
 | API INTERFACE                        | METHOD | PARAMETERS                          | **INTERFACE INTRODUCTION**                                   |
 | ------------------------------------ | ------ | ----------------------------------- | ------------------------------------------------------------ |
@@ -886,7 +886,7 @@ The application of smart fitness platforms is not limited to a single network pr
 
 - **Request Example:**
 
-```jso
+```json
 {
   "token": "userToken12345",
   "planID": "plan_id_1",
@@ -970,4 +970,469 @@ The application of smart fitness platforms is not limited to a single network pr
 
 # 3. Design Mechanism
 
+## 3.1. Data Persistence Mechanism
+
+In our Keep Fit Platform, data persistence is a core component to ensure the efficient operation of the system. With the expansion of platform features and the growth of user demand, we need to perform data persistence operations across various modules, including but not limited to: diet plans, execution statuses, diet records, and analysis results in the health diet system; fitness videos or images uploaded by users and their corresponding analysis results; users' fitness plans, execution statuses, and fitness preferences. Moreover, in order to support AI recommendation engines and intelligent analysis, we also need to store personalized fitness data, health history, and progress trends.
+
+### 3.1.1. Data Persistence Requirements
+
+The data in our platform is diverse, including both static data (e.g., personal information, diet plans) and dynamic data (e.g., fitness videos, execution statuses, analysis results). To efficiently and securely store this data, choosing an appropriate persistence solution is crucial.
+
+Given the system's needs, a relational database is the most suitable choice, as it can flexibly store this structured and related data. To ensure the platform can interact efficiently with the database, we have chosen to use the Hibernate framework for data persistence management.
+
+### 3.1.2. Persistence Architecture and ORM Technology
+
+In our platform architecture, Java objects typically reside in memory, and these objects need to interact with data stored in the relational database at different points in time. Thus, we employ Object-Relational Mapping (ORM) technology through the Hibernate framework to establish a mapping between Java objects in memory and data tables in the relational database.
+
+The core advantage of the Hibernate framework is that it simplifies database operations and significantly reduces code redundancy. It can automatically generate SQL statements, handle database transactions, and integrate closely with JDBC to ensure support for most relational databases. For our smart fitness platform, Hibernate easily implements bidirectional mapping between objects and database tables.
+
+### 3.1.3. Persistence Layer Design
+
+In the design of our platform, we have created a persistence layer that sits between the business layer and the database, acting as an intermediary. This layer is responsible for data persistence operations, providing interfaces through which the business layer can easily interact with the database for data retrieval, updates, and deletions.
+
+![Hibernate](.\assets\Hibernate.png)
+
++ **Hibernate Framework Workflow**
+
+1. **Configuration Object**: First, we need to configure Hibernate through configuration files such as `hibernate.cfg.xml` and `hibernate.properties`. These files include database connection information (e.g., database URL, username, password) and the mappings between Java classes and database tables. By using these configuration files, Hibernate can identify and initialize all the necessary information for connecting to the database.
+2. **SessionFactory Object**: When the application starts, we create a `SessionFactory` object. This is a heavyweight object responsible for managing all database sessions. The `SessionFactory` creates a database connection pool based on the configuration files, ensuring efficient sharing of database connection resources across the entire system. For different database configurations, multiple `SessionFactory` objects may be required.
+3. **Session Object**: The `Session` object is the basic unit of interaction with the database in Hibernate. Each time a database operation (such as inserting or querying data) occurs, it is done through a `Session`. The `Session` object is lightweight and is typically created dynamically for each operation, then destroyed after the operation is completed. To ensure performance and thread safety, the `Session` object is generally created and destroyed per request rather than being kept open for long periods.
+4. **Transaction Object**: Transaction management is crucial for interacting with databases. The `Transaction` object in Hibernate ensures atomicity and consistency of operations. For example, when updating a user's fitness record, it is essential to synchronize data across multiple related tables. The `Transaction` object provides methods for beginning, committing, and rolling back transactions.
+5. **Query Object and Criteria Object**: To retrieve data from the database, Hibernate provides the `Query` object and `Criteria` object. The `Query` object allows data retrieval using either native SQL statements or Hibernate Query Language (HQL). The `Criteria` object offers a more object-oriented approach to querying, enabling dynamic construction of SQL statements based on query conditions. In our fitness platform, retrieving AI analysis results and fitness preferences typically relies on these query tools to perform flexible queries.
+
+### 3.1.4. Examples of Data Persistence Scenarios
+
+1. **Diet Plans and Records**: Each user's diet plan, execution status, diet records, and analysis results need to be persistently stored. With Hibernate, we map these details to Java objects and store them in the corresponding database tables. When users update their diet records, the system automatically synchronizes the data with the database, ensuring that the user’s data is up-to-date.
+2. **Fitness Videos and Analysis Results**: The fitness videos or images uploaded by users, along with their analysis results, are typically large files stored in the file system. However, related metadata (such as filenames, user IDs, upload time) is persistently stored in the database using Hibernate.
+3. **Personalized Fitness Plans and AI Recommendations**: Based on user preferences and historical data, the platform provides personalized fitness plan recommendations. These recommendations, along with the user's fitness preferences and historical training records, are persistently stored for the AI engine to analyze and optimize.
+
+In the Keep Fit Platform, data persistence involves not only storing basic user information and fitness records but also handling complex data models such as diet plans, video analysis results, and AI recommendation information. By adopting the Hibernate framework, we can efficiently map between objects and relational database tables, simplifying the implementation of the data access layer and improving the system's maintainability and scalability. The decoupling of the persistence layer from the business layer allows the system to be more flexible and extensible, providing users with a more personalized and intelligent fitness management experience.
+
+## 3.2. Distribution Mechanism  
+
+As we choose to use **Microservices-based Architecture** during our project design and implementation, it is natural for us to consider distributing our microservices to make our service more scalable, resilient,  and able to handle a large volume of users and transactions. And we hope to do so by utilizing a matured, automated framework that can significantly reduce the development and maintenance complexity. 
+
+In our system, we have adopted **Spring Cloud** to construct a robust, scalable, and fault-tolerant distributed architecture. **Spring Cloud** provides a comprehensive suite of tools and frameworks designed to tackle the common challenges faced when developing microservices, such as service discovery, load balancing, configuration management, and fault tolerance. These tools help to ensure that our system can scale efficiently, remain highly available, and maintain smooth communication across a large number of distributed services.
+
+### 3.2.1. Microservices Architecture
+
+As mentioned before, to enhance the system's modularity, maintainability, and resilience, we have implemented a **Microservices-based Architecture**. The entire platform is divided into a set of small, independently deployable services, each responsible for a specific functionality within the system. For example, we have distinct services for user management, order processing, inventory management, and notifications, allowing each service to evolve independently while still working together seamlessly.
+
+Each microservice in the system is loosely coupled, which means that they can be developed, deployed, and scaled independently. This architectural style enables rapid development cycles, as teams can work on different services simultaneously without causing dependency conflicts. Moreover, microservices can be written in different programming languages or frameworks based on the specific requirements of the service, providing flexibility in choosing the best tools for each task.
+
+In this architecture, **Spring Cloud Netflix Eureka** is used to manage service discovery. Eureka acts as the service registry where every microservice registers itself upon startup, and other services can discover and interact with them through a simple API. This eliminates the need for static service URLs, allowing the system to scale dynamically without having to manually update configurations whenever new instances are added or removed.
+
+Furthermore, **Spring Cloud Gateway** is employed as the single entry point for all external requests. It handles routing, load balancing, and API management. The gateway uses predefined routes to direct traffic to the appropriate microservices. This pattern improves the overall system’s security and performance, as traffic is centralized and can be controlled more efficiently.
+
+### 3.2.2. Service Management and Fault Tolerance
+
+In a distributed system, service failures are inevitable, so ensuring resilience is a key consideration in our implementation. We use **Spring Cloud Circuit Breaker**, specifically **Hystrix** (or **Resilience4J** as a more modern alternative), to implement fault tolerance in our services. This allows us to define fallback methods for critical service calls, preventing cascading failures when one service becomes unavailable.
+
+For example, when a microservice fails, Hystrix will "trip" the circuit breaker and return a predefined fallback response, thus preventing further attempts to contact the failing service. This mechanism ensures that the rest of the system remains functional even when one or more services are down. Additionally, this pattern helps avoid overloading the failing service, providing time for recovery without affecting the user experience significantly.
+
+We also utilize **Spring Cloud Config** for centralized configuration management. Instead of hard-coding configuration settings in individual services, we store them in a centralized repository (such as Git), which can be dynamically loaded by the services at runtime. This centralization simplifies the management of application settings across multiple environments (development, staging, production) and makes it easier to update configurations without redeploying the services. **Spring Cloud Bus** is used to propagate configuration changes across the entire system in real-time, ensuring that all services receive the latest configuration updates immediately.
+
+### 3.2.3. Load Balancing and High Availability
+
+**Spring Cloud Netflix Ribbon** provides client-side load balancing, ensuring that requests are evenly distributed across available service instances. Ribbon works alongside **Eureka** to automatically retrieve the list of available service instances and balance the load among them. This reduces the risk of overloading any single instance and ensures a more efficient use of resources.
+
+For example, when a user requests data from a particular service, Ribbon will select one of the available instances based on the chosen load balancing algorithm (such as round-robin, weighted response time, etc.). This mechanism helps improve the performance and responsiveness of the system, as each service can scale independently based on demand.
+
+In addition, **Spring Cloud Sleuth** provides distributed tracing, allowing us to trace requests as they flow across different microservices. This is crucial for debugging and monitoring the performance of the system, especially in complex distributed systems where requests may pass through multiple services before reaching their final destination. By integrating **Zipkin** or **ELK Stack (Elasticsearch, Logstash, Kibana)** with Sleuth, we can visualize the flow of requests, identify bottlenecks, and ensure that the system is operating efficiently.
+
+### 3.2.4. Scalability and Auto-Scaling
+
+The microservices architecture allows for flexible and elastic scaling. Each microservice can be scaled independently, which helps to accommodate increasing traffic without affecting other parts of the system. We use **Kubernetes** (or other container orchestration platforms) to manage the deployment and scaling of microservices. With Kubernetes, we can automatically scale the number of replicas for a given microservice based on CPU utilization, memory usage, or custom metrics.
+
+For example, if the order service experiences a high volume of requests, Kubernetes can automatically spin up additional instances to handle the load, ensuring that the service remains responsive. Once the load decreases, the extra instances are terminated to save resources. This dynamic scaling is vital in a cloud-native environment, where workloads can fluctuate frequently, and the system must be able to respond quickly to changes in demand.
+
+### 3.2.5. Monitoring and Logging
+
+To ensure the health of our system, we integrate **Spring Boot Actuator** to expose operational metrics and health checks, such as system performance, database connection status, and memory usage. These metrics are collected and monitored using **Prometheus** and **Grafana**, providing real-time insights into the system's health.
+
+For logging, we use **ELK Stack (Elasticsearch, Logstash, Kibana)** or **Splunk** to collect and analyze logs from all microservices. By centralizing logs, we can quickly identify and troubleshoot issues in the system. The logs are also essential for debugging, especially when tracing requests across distributed services.
+
+### 3.2.6. Conclusion
+
+Through the adoption of **Spring Cloud**, we have successfully built a microservices architecture that is flexible, resilient, and capable of handling the complex demands of our platform. With features such as dynamic service discovery, centralized configuration, fault tolerance, and scalable deployment, we ensure that our system is both robust and easy to maintain. Furthermore, by integrating monitoring, logging, and auto-scaling capabilities, we guarantee that our system remains highly available and responsive even under heavy load. This architecture allows us to continuously improve and scale our services while maintaining high performance and reliability.
+
 # 4. UseCase Realization
+
+## 4.1. Search and Browse Tutorials
+
+The class diagram for searching and browsing the tutorial use case is shown below:
+
+![TutorialClassDiagram](.\assets\TutorialClassDiagram.png)
+The interaction diagram for the search and browse tutorial use cases is shown below:
+
+![SearchBrowseTutorials](.\assets\SearchBrowseTutorials.png)
+According to the interactive diagram of search and browse tutorial of the intelligent fitness system, we can get the corresponding implementation steps, which are as follows:
+
+1. Users enter the tutorial name in the tutorial search interface and click the "Search" button. This operation is usually implemented with front-end technologies, such as Vue.js. With these frameworks, the front end is able to respond to user input in real time and bind data to HTML elements. Once the user clicks "Search" and triggers the AJAX request through the JavaScript code, the background will receive the search keyword (tutorial name) sent by the front end. The front end page uses AJAX technology so that you can interact with the back end without refreshing the entire page to improve the user experience.
+2. When a user submits a search request, the front end page sends the tutorial name (or keyword) entered by the user to the back end. This request is sent to the controller (Controller) in the back-end Spring MVC framework via the AJAX or Fetch technology. The front-end request uses the HTTP protocol, usually a GET or POST request, passing the query parameters containing user input. After receiving the request, the controller can extract the search keyword entered by the user through the parameter resolution technology (such as the @RequestParam of Spring) and pass it to the business layer for subsequent processing.
+3. After receiving a search request from the front end, the Spring MVC's controller invokes the service layer (Service) to process the business logic. The service layer interacts with the database through the data access layer (DAO) to query for eligible tutorial data. The data access layer usually uses frameworks such as JPA (Java Persistence API) to perform SQL queries or uses ORM (Object relationship mapping) technology to query the database. At this point, an external database may be called through REST API to get information about the tutorial. If you use REST API, the returned data format is usually a JSON, and the controller parses it and passes it to the view layer.
+4. The database returns eligible tutorial data (e. g., tutorial name, profile, duration, difficulty, etc.). This data is returned to the front end via Spring MVC's controller. The controller uses the @ResponseBody annotation to encapsulate the data in the JSON format and return it to the front-end application. Here, Spring MVC's view parser passes this data to the front-end interface, where the front-end framework (such as Vue.js) presents the tutorial information to the user through data binding technology.
+5. The search controller encapsulates the tutorial information returned by the database and returns it to the front end via REST API. At the front end, the updated view is dynamically displayed to the user interface based on the JavaScript framework (such as Vue.js). At this point, the front end can update the UI using Vue.js or React status management (such as Vuex) and display the tutorial information through the corresponding components. Users can see a list containing the tutorial name, profile, duration, etc., and click to enter the detailed page.
+6. If a match tutorial is not found in the database, the controller will receive an empty result or error message. At this point, the controller captures this result through the Spring MVC's exception handling mechanism and generates an error response ("No relevant tutorial found"). This response is returned to the front-end in the JSON format, which displays the corresponding prompt message box using a front-end framework such as Bootstrap, Vue.js or React. The Bootstrap pop-up prompt component or custom message box shows the user the "not found tutorial" prompt message to ensure that the user gets clear feedback.
+7. When the user clicks on a tutorial in the search results, the front end implements the page jump through Vue Router or React Router. At this point, the route is dynamically loaded, and the system requests the details of the tutorial from the background via the REST API. The controller of Spring MVC queries the details in the database based on the passed tutorial ID, possibly using the Thymeleaf or JSP to render the tutorial details page. During rendering, the data is passed to the Thymeleaf Template engine (or JSP) to generate the final HTML page. The page includes tutorial details, previews, and price reviews, which users can browse in detail.
+
+Through the Spring MVC framework for front-and rear-end interaction, with REST API, database query, AJAX and other technologies, the system can efficiently process user search requests, and return the corresponding results. Thymeleaf and JSP serve as view template engines to help show back-end data to front-end users, improving the response speed and user experience of the system. On the front end, using the Vue.js or React framework at the front end makes the interface more dynamic and interactive, providing users with a good operating experience.
+
+The corresponding pseudo-code is as follows:
+
++ Users enter the tutorial name in the tutorial search interface and click the search button:
+
+```javascript
+// Vue.js: Handle user input and call the search function
+searchTutorial() {
+  const searchQuery = this.searchInput;  
+  fetchTutorialData(searchQuery);  
+}
+```
+
++ The search interface sends the user input to the tutorial search controller:
+
+```javascript
+// Vue.js: Send search request to the backend using async/await and AJAX
+async function fetchTutorialData(query) {
+  try {
+    const response = await $.ajax({
+      url: `/api/tutorial/tutorialSearch`,  
+      // Use GET request method
+      method: 'GET',                        
+      data: { query: query },          
+    });
+    // On success, call function to update the UI
+    updateTutorialList(response);         
+  } catch (error) {
+    // Show error message if the request fails
+    showError("Search failed");
+  }
+}
+```
+
++ After receiving the request, the tutorial search controller queries the tutorial database:
+
+```java
+// Spring MVC Controller: Receive request from the frontend and query the database in the service layer
+@RequestMapping("/api/tutorial/tutorialSearch")
+public ResponseEntity<List<Tutorial>> tutorialSearch(@RequestParam String query) {
+    // Call service layer to query the database
+    List<Tutorial> tutorials = tutorialService.searchTutorials(query);  
+    if (tutorials.isEmpty()) {
+        // Throw exception if no tutorials are found
+        throw new TutorialNotFoundException("No relevant tutorials found: " + query);  
+    }
+    // Return the list of tutorials to the frontend
+    return ResponseEntity.ok(tutorials);  
+}
+```
+
++ The database returns the tutorial information that matches the criteria:
+
+```java
+// Service Layer: Query the tutorial data in the database
+public List<Tutorial> tutorialSearch(String query) {
+	// Use JPA to query tutorial data
+    return tutorialRepository.findByNameContaining(query);  
+}
+```
+
++ The search controller returns the matching tutorial information to the frontend:
+
+```java
+// Spring MVC Controller: Return matching tutorial data to the frontend
+@RequestMapping("/api/tutorial/tutorialSearch")
+public ResponseEntity<List<Tutorial>> tutorialSearch(@RequestParam String query) {
+	// Get matching tutorials from the service layer
+    List<Tutorial> tutorials = tutorialService.tutorialSearch(query);  
+    // Return the tutorial data in JSON format to the frontend
+    return ResponseEntity.ok(tutorials);  
+}
+```
+
++ If no matching tutorial is found, the controller will display a "No tutorial found" message on the frontend:
+
+  + Backend handles the exception when the requested tutorial is not found:
+
+  ```java
+  // Spring MVC: Exception handling for when no tutorial is found
+  @ExceptionHandler(TutorialNotFoundException.class)
+  public ResponseEntity<String> handleTutorialNotFound(TutorialNotFoundException ex) {
+  	// Return 404 error and the message
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());  
+  }
+  ```
+
+  + The front end displays error messages to alert the user of a problem:
+
+  ```javascript
+  // Vue.js: Display error message
+  function showError(message) {
+    // Show an error alert
+    alert(message);  
+  }
+  ```
+
++ When the user clicks on a tutorial, the page navigates to the tutorial detail browse page:
+
+  + Front-end processing The user clicks on a tutorial to see the details:
+
+  ```javascript
+  // Vue.js: Handle user click on a tutorial to view details
+  async function viewTutorialDetails(tutorialId) {
+    try {
+      const response = await $.ajax({
+        url: `/api/tutorial/tutorialInfo`, 
+        // Use GET request to fetch tutorial details
+        method: 'GET',                       
+        data: { id: tutorialId },            
+      });
+      // On success, render the tutorial details on the page
+      displayTutorialDetails(response);
+    } catch (error) {
+      // On error, show error message
+      showError("Failed to load tutorial details");
+    }
+  }
+  ```
+
+  + The backend uses the Spring MVC controller method to query the details of the tutorial against the incoming tutorialId:
+
+  ```java
+  // Spring MVC Controller: Query tutorial details based on tutorial ID
+  @RequestMapping("/api/tutorial/tutorialInfo")
+  public ResponseEntity<Tutorial> getTutorialDetails(@RequestParam Long id) {
+      // Get tutorial details from the database
+      Tutorial tutorial = tutorialService.getTutorialDetails(id);  
+      if (tutorial == null) {
+          // Throw exception if no tutorial found
+          throw new TutorialNotFoundException("No tutorial found with ID " + id);  
+      }
+      // Return the tutorial details
+      return ResponseEntity.ok(tutorial);  
+  }
+  ```
+
+The above code illustrates the process from front-end to back-end in searching tutorials and viewing tutorial details. The front end uses Vue.js to interact with the backend, which is built using Spring MVC. The data is transmitted between the front end and backend using REST APIs, and error handling is implemented to provide feedback to users.
+
+## 4.2. AI analyzes dietary records
+
+In our system, we use AJAX for asynchronous communication between the frontend and backend. Spring MVC is responsible for handling backend requests, business logic, data validation, and generating response data. Additionally, we use Alibaba Cloud's large model API to implement the AI analysis functionality.
+
+![Ai分析类图](D:./assets/AIClassDiagram.png)
+
+![ai分析时序图](D:./assets/AIInteraction.png)
+
+The use case class diagram and sequence diagram are shown above.
+
+1. The user accesses the dietary records page to view historical analysis data
+
+The user accesses the "Dietary Records" page, which is dynamically loaded by the frontend framework (Vue.js) and displays the user's historical analysis records. The frontend page sends an HTTP request to the backend via AJAX, submitting the user's authentication token to retrieve the relevant historical data.
+
+2.  The dietary records page sends the request to the AI analysis controller class
+
+When the user initiates a request to view historical records, the frontend encapsulates the user's token into the request body and sends it to the backend controller (`AIAnalysisControl` class) via the Spring MVC framework. The request uses the POST method. The backend controller parses the request data and passes it to the service layer for database query operations.
+
+3. The AI analysis controller class receives the request and queries the database for historical records
+
+Upon receiving the query request from the frontend, the Spring MVC controller invokes the service layer to process the business logic. The service layer interacts with the database using an ORM framework (Hibernate) to query the user's corresponding historical analysis records and returns the results to the controller class.
+
+4. Returning historical records data and displaying it on the frontend
+
+The historical records data in the database (including analysis IDs, related record IDs, analysis content, etc.) is returned to the frontend through the Spring MVC controller. The controller uses the `@ResponseBody` annotation to package the data into JSON format, which is then sent to the frontend application. The frontend framework parses this data and dynamically displays the results on the "Dietary Records" page using data binding techniques (e.g., Vue.js's `v-bind`). Users can browse the relevant information.
+
+5. The user selects records and initiates an AI analysis request
+
+After reviewing the historical records, the user can select certain records for AI analysis. The user selects the records on the frontend page and clicks the "Submit Analysis" button, triggering an AJAX request that sends the selected record IDs and the user's token to the backend controller class.
+
+6. The AI analysis controller class retrieves record information and calls an external API
+
+After receiving the analysis request from the frontend, the controller class retrieves the detailed information of the corresponding records from the database by invoking the `getRecordInfo(recordID)` method. Subsequently, it calls the external API (Alibaba Cloud Large Model API) to complete the AI analysis request. The external API is implemented using a REST API interface, with data exchanged in JSON format.
+
+7. The external API returns AI analysis results
+
+The external API processes the request, completes the analysis, and returns the results in JSON format to the backend controller class. The controller class parses the returned data and packages it into a frontend-compatible format, which is sent back to the frontend through Spring MVC.
+
+8. The frontend displays the analysis results
+
+After receiving the AI analysis results, the frontend uses dynamic rendering techniques to display the analysis results on the page, helping the user intuitively understand the analysis information.
+
+9. The user chooses to save the analysis results
+
+The user can choose to save the AI analysis results in the system. When the user clicks the "Save" button, the frontend triggers another AJAX request, sending the analysis results and the user's token to the backend controller class.
+
+10. The AI analysis controller class saves the analysis results
+
+After receiving the save request, the backend controller class interacts with the database through the ORM framework to store the analysis results in the database.
+
+11. The database returns the save result and provides feedback to the frontend
+
+After the database executes the save operation, it returns the status (success or failure) to the controller class. The controller class packages the result into JSON format and sends it back to the frontend via Spring MVC. The frontend, upon receiving the result, updates the page state using a state management tool, displaying a success or failure message (e.g., using a Bootstrap modal or a custom message box).
+
+The corresponding pseudo-code is as follows:
+
+- User goes to page, sends request to view history
+
+```javascript
+    async loadHistrical() {
+      try {
+        const response = await axios.post("api/dietaryRecord/loadHistrical", {
+          token: this.token
+        });
+        this.records = response.data.records;
+      } catch (error) {
+        console.error("Error loading records:", error);
+      }
+    },
+```
+
+- Back-end querying the database to get historical analysis results
+
+  - Controller Layer
+
+  ```java
+  @PostMapping("api/dietaryRecord/loadHistrical")
+  public ResponseEntity<List<Analysis>> loadRecords(@RequestBody TokenRequest request) {
+      String userID = userService.getUserIdByToken(request.getToken());
+      if (userID == null) {
+          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); 
+      }
+      List<Analysis> results = analysisService.getAllAnalysis(request.getToken());
+      return ResponseEntity.ok(results);
+  }
+  ```
+
+  - Service Layer
+
+  ```java
+   public List<Analysis> getAllAnalysisByUserId(String userID) {
+          return analysisRepository.findByUserID(userID);
+      }
+  ```
+
+- The front-end submits a request for AI analysis
+
+  ```java
+  async analyzeRecord(recordId) {
+      try {
+        const response = await axios.post("api/dietaryRecord/getAIanalysis
+          token: this.token,
+          recordId: [record_id_01,
+                     record_id_02,
+                     record_id_03]
+        });
+        this.analysisResult = response.data.analysisResult;
+      } catch (error) {
+        console.error("Failed to analyze record:", error);
+      }0
+    }
+  ```
+
+- Backend Processing Analysis Request
+
+  - Controller Layer
+
+  ```java
+  @PostMapping("api/dietaryRecord/getAIanalysis")
+  public ResponseEntity<Analysis> analyzeRecord(@RequestBody AnalysisRequest request) {
+      String recordContent = recordService.getRecordContent(request.getRecordId());
+      String analysisResult = analysisService.analyze(recordContent);
+      return ResponseEntity.ok(new Analysis(analysisResult));
+  }
+  
+  ```
+
+  - Service Layer
+
+  ```java
+  public String getRecordContent(String recordId) {
+      Record record = recordRepository.findById(recordId).orElseThrow(() -> new RuntimeException("Record not found"));
+      return record.getContent();
+  }
+  public String analyze(String recordContent) {
+      // Create a RestTemplate instance
+      RestTemplate restTemplate = new RestTemplate();
+  
+      // Construct the request header
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.APPLICATION_JSON);
+      headers.set("Authorization", "Bearer " + API_KEY); 
+  
+      // Construct the request body
+      Map<String, Object> requestBody = new HashMap<>();
+      requestBody.put("content", recordContent);
+  
+      HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestBody, headers);
+  
+      try {
+          // Calling external APIs
+          ResponseEntity<String> response = restTemplate.exchange(
+              AI_API_URL,
+              HttpMethod.POST,
+              requestEntity,
+              String.class
+          );
+  
+          // Parses and returns the API response
+          return parseResponse(response.getBody());
+      } catch (Exception e) {
+          // Handle failed calls
+          e.printStackTrace();
+          return "Error: Unable to analyze the content.";
+      }
+  }
+  ```
+
+- The front-end saves the results of the analysis
+
+  ```javascript
+    async saveAnalysis() {
+      try {
+        const response = await axios.post("/api/saveAnalysis", {
+          token: this.token,
+          Analysis: this.Analysis
+        });
+        if (response.data.success) {
+          alert("Analysis result saved successfully!");
+        } else {
+          alert("Failed to save analysis result.");
+        }
+      } catch (error) {
+        console.error("Failed to save analysis result:", error);
+      }
+    }
+  ```
+
+- Back-end saving of analysis results
+
+  - Controller Layer
+
+    ```java
+    @PostMapping("/saveAnalysis")
+    public ResponseEntity<String> saveAnalysis(@RequestBody SaveAnalysisRequest request) {
+        boolean success = analysisService.saveAnalysisResult(userService.getUserIdByToken(request.getToken()), request.getAnalysisResult());
+        return ResponseEntity.ok(new SaveResponse(success));
+    }
+    
+    ```
+
+  - Service Layer
+
+    ```java
+    public boolean saveAnalysisResult(String userID, String analysisResult) {
+        Analysis analysis = new Analysis();
+        analysis.setUserID(userID);
+        analysis.setResult(analysisResult);
+        analysisRepository.save(analysis);
+        return true;
+    }
+    ```
+
+
+# 5. Progress on Phototyping
+
+## 5.1. Front-end Phototyping
+
+## 5.2. Back-end Phototyping
+
