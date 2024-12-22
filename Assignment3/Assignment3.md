@@ -109,7 +109,7 @@ The API gateway will be implemented through Spring Cloud Alibaba, as a unified e
 
 + **Security**
 
-The security certification of the system will use Sa-Token, a lightweight licensing framework that can meet the security requirements of the platform. Certification and authorization through this framework can effectively guarantee the security of the platform and support security testing. 
+For the security certification of the system, we implement a token token-based framework that can meet the security requirements of the platform. Certification and authorization through this framework can effectively guarantee the security of the platform and support security testing. 
 
 + **Data storage**
 
@@ -189,7 +189,7 @@ In smart fitness systems, video tutorials may require permission control. Only u
 
 + In our system, all images and video resources uploaded by users are stored in Alibaba Cloud OSS and returned to the front-end for display through generated URLs. This approach not only provides high reliability and availability, ensuring secure and stable access to data, but also supports high concurrency processing and low latency, enhancing the user experience.
 + The microservice architecture we use is extremely flexible, can adapt well to the agile development process, and has advantages beyond traditional architectures in terms of system reconstruction and continuous integration. In addition, the deployment and expansion of the micro-service architecture enable us to make full use of the advantages of the cloud platform in the operation and maintenance process, effectively control costs and improve the maintainability of the system.
-+ In every link of the system design, we always put the user privacy protection in the first place. In addition to the strict permission control based on sa-token, we also plan to implement encryption at the database level and adopt disk-level hardware encryption technology to ensure the security of user data. In the process of data collection and analysis, we will use desensitized data, so as to effectively protect user privacy.
++ In every link of the system design, we always put the user privacy protection in the first place. In addition to the strict permission control based on token, we also plan to implement encryption at the database level and adopt disk-level hardware encryption technology to ensure the security of user data. In the process of data collection and analysis, we will use desensitized data, so as to effectively protect user privacy.
 + Using ElPlus and Vue to build our UI: Vue as a popular front-end framework provides an efficient development experience and a flexible component structure that can quickly respond to user needs. The introduction of ElPlus further improves the standardization and consistency of UI design, making the front-end interface more modern and user-friendly, thus bringing a smoother user experience.
 + Based on the concept of object-oriented programming, combined with the domain-specific technology stack: our projects mainly use the Springboot technology stack for development and process most of the business logic. However, in some specific services, thanks to the flexibility of the micro-service architecture, we adopt a dedicated technology stack in the corresponding field to improve the development efficiency and system performance.
 
@@ -233,7 +233,7 @@ Based on the above content, the logical architecture of this system is as follow
 
 To ensure the microservices architecture scales effectively with the project size, we continue to use separate front-end and back-end development approaches. The front-end is developed using frameworks and libraries such as Vue and Sencha, while the back-end is built using Spring Boot and Spring Cloud. Communication between the front-end and back-end occurs through RESTful APIs and JSON data files. Data layers communicate and transform data using different models, such as Value Objects (VO), Data Transfer Objects (DTO), and Domain Objects (DO).
 
-For authorization and authentication, the system uses sa-token. Comprehensive log collection and data analysis visualization are provided by the ELK stack. To efficiently handle asynchronous messages and traffic management, ActiveMQ is used for message passing and storage. The back-end persists data to Oracle databases or Redis caches using the Hibernate persistence mechanism.
+For authorization and authentication, the system uses token. Comprehensive log collection and data analysis visualization are provided by the ELK stack. To efficiently handle asynchronous messages and traffic management, ActiveMQ is used for message passing and storage. The back-end persists data to Oracle databases or Redis caches using the Hibernate persistence mechanism.
 
 Based on these technologies, the technical stack diagram for the system is as follows:
 
@@ -359,7 +359,7 @@ Based on the above domain design, in order to meet the demand for moderately gra
 
 ## 4.3. Interface Specification
 
-Since the intelligent fitness system platform involves different roles and authority management, in order to ensure the privacy security of data and the efficiency of information transmission in the process of system operation, the project needs to include a special security service module, responsible for user login authentication and authority control. Considering that the front and back end architecture of the system is separated, and there are a series of requirements, such as authentication and security access, we chose sa-token as the security framework. The sa-token isa lightweight and powerful framework capable of providing efficient, flexible authentication and licensing capabilities. By using sa-token, we can effectively manage the permissions of different user roles, ensure the data security of the system, while ensuring the fluency of user operation and the efficiency of the authentication process, so as to support the stable operation and rapid iteration of the system.
+Since the intelligent fitness system platform involves different roles and authority management, in order to ensure the privacy security of data and the efficiency of information transmission in the process of system operation, the project needs to include a special security service module, responsible for user login authentication and authority control. Considering that the front and back end architecture of the system is separated, and there are a series of requirements, such as authentication and security access, we chose token-based authentication as the security technique. By using token, we can effectively manage the permissions of different user roles, ensure the data security of the system, while ensuring the fluency of user operation and the efficiency of the authentication process, so as to support the stable operation and rapid iteration of the system.
 
 ### 4.3.1. Internal Interface Description
 
@@ -367,9 +367,9 @@ Since the intelligent fitness system platform involves different roles and autho
 
 Before users can access the various features of our project, they must first authenticate their login credentials. This is necessary because access to certain operational interfaces is restricted to authorized users only. Login authentication serves as a prerequisite for performing any operations that require authenticated user permissions.
 
-To ensure smooth and secure user interactions, the sa-token framework is utilized to manage the login process. It provides a set of API interfaces that allow the system to check the current login status, as well as retrieve token-related information such as validity, expiration, and user identity. These interfaces seamlessly integrate with other parts of the system, enabling efficient authentication management and facilitating subsequent user operations that require authentication.
+To ensure smooth and secure user interactions, we utilize token to manage the login process. It provides a set of API interfaces that allow the system to check the current login status, as well as retrieve token-related information such as validity, expiration, and user identity. These interfaces seamlessly integrate with other parts of the system, enabling efficient authentication management and facilitating subsequent user operations that require authentication.
 
-By leveraging the sa-token framework, our project can ensure that all operations are performed securely and only by authenticated users, enhancing both functionality and security across the platform.
+By leveraging token-based authentication, our project can ensure that all operations are performed securely and only by authenticated users, enhancing both functionality and security across the platform.
 
 | API                      | Method | Parameters             | Description                                                  |
 | ------------------------ | ------ | ---------------------- | ------------------------------------------------------------ |
@@ -1639,4 +1639,29 @@ During the implementation of the project, the team members actively participate 
 |   2153085<br/> Lixin Ma    |   √    |   √    |        |   √    |        |   √    |   √    |   √    |   √   |     25%      |
 |  2154284 <br/>Junhao Yang  |   √    |        |   √    |   √    |        |   √    |        |   √    |   √   |     25%      |
 
-Specifically, Weicheng Zheng is mainly responsible for the Fitness Action Coaching and Equipment SubSystem. Juekai Lin is mainly responsible for the Fitness Tutorial Subsystem. Lixin Ma is mainly responsible for the Healthy Diet Subsystem. Junhao Yang is mainly responsible for the Login and Registration Subsystem.
+The project description part is summarized by Juekai Lin and Lixin Ma.
+
+The Platform and Architecture Styles is summarized by Weicheng Zheng and Lixin Ma.
+
+The design pattern and Design Decisions is summarized by Juekai Lin and Junhao Yang.
+
+The Platform-dependent Architecture is summarized by Weicheng Zheng and Juekai Lin.
+
+The Subsystems and Interfaces are summarized by all the group members. Specifically, Weicheng Zheng is mainly responsible for the Fitness Action Coaching and Equipment SubSystem. Juekai Lin is mainly responsible for the Fitness Tutorial Subsystem. Lixin Ma is mainly responsible for the Healthy Diet Subsystem. Junhao Yang is mainly responsible for the Login and Registration Subsystem.
+
+The Interface Specification is summarized by Weicheng Zheng and Junhao Yang.
+
+The example in 4.4 part is summarized by Lixin Ma and Junhao Yang.
+
+The Data Persistence Mechanism is summarized by Weicheng Zheng and Juekai Lin.
+
+The Distribution Mechanism is summarized by Junhao Yang.
+
+The Search and Browse Tutorials usecase is summarized by Juekai Lin.
+
+The AI analyzes dietary records usecase is summarized by Lixin Ma.
+
+The Progress on Prototyping is summarized by Lixin Ma and Junhao Yang.
+
+
+
